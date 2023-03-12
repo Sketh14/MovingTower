@@ -156,7 +156,7 @@ Transform:
   - {fileID: 169011469}
   - {fileID: 1813876647}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &158300507
 GameObject:
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316196615}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f952b272c6d25f04ca54d76c1dad59a1, type: 3}
   m_Name: 
@@ -355,7 +355,7 @@ MonoBehaviour:
   - {x: -18, y: 4.4, z: -63}
   - {x: -18, y: 4.4, z: 63}
   - {x: 18, y: 4.4, z: 63}
-  spawnInterval: 1
+  spawnInterval: 2
   spawnCount: 0
   invokeCount: 1
 --- !u!4 &316196617
@@ -756,7 +756,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &865955281
 GameObject:
@@ -796,6 +796,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51d2c9a26b21b2341b99c51de94cee49, type: 2}
   - {fileID: 11400000, guid: 2c04f74fcc84170488cab4be4d04f947, type: 2}
   - {fileID: 11400000, guid: ca854d43e0c06184e972ea720a32635d, type: 2}
+  gameLogicReference: {fileID: 1206723670}
+  enemySpawnerReference: {fileID: 316196616}
 --- !u!4 &865955283
 Transform:
   m_ObjectHideFlags: 0
@@ -809,7 +811,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &952887445
 GameObject:
@@ -1089,6 +1091,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085952691}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1206723669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1206723671}
+  - component: {fileID: 1206723670}
+  m_Layer: 0
+  m_Name: GameLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1206723670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206723669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d815bbeebc0016449dfd9e547aeb805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1206723671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206723669}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1253815727
 GameObject:
   m_ObjectHideFlags: 0

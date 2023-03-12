@@ -34,15 +34,22 @@ namespace Moving_Tower
 
         private void UpdateWayPoint()
         {
-            if (wayPointCount < waypoints.wayPoints.Count)
+            if (wayPointCount < waypoints.wayPoints.Count - 1)
             {
                 wayPointCount++;
                 targetDir = waypoints.wayPoints[wayPointCount] - transform.position;
             }
             else
             {
-                gameObject.SetActive(false);
+                GameManager.instance.gameLogicReference.OnCastleReached?.Invoke();
+                ResetEnemy();
             }
+        }
+
+        private void ResetEnemy()
+        {
+            gameObject.SetActive(false);
+            wayPointCount = 0;
         }
     }
 }

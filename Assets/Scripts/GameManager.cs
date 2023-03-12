@@ -9,6 +9,10 @@ namespace Moving_Tower
         public List<WayPoints_SO> wayPoints;
         public List<Enemy_SO> enemyStats;
 
+        [Header ("Reference Scripts")]
+        public GameLogic gameLogicReference;
+        public EnemySpawner enemySpawnerReference;
+
         private static GameManager _instance;
         public static GameManager instance
         {
@@ -22,6 +26,8 @@ namespace Moving_Tower
                 Destroy(this);
             else
                 _instance = this;
+
+            enemySpawnerReference.enabled = true;
         }
     }
 }
