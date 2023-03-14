@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +5,22 @@ namespace Moving_Tower
 {
     public class EnemyPoolManager : MonoBehaviour
     {
-        Queue<GameObject> enemyPool = new Queue<GameObject>();
-        [SerializeField] private GameObject enemyPrefab;
+        [System.Serializable]
+        public class Enemy
+        {
+            public Enemy_SO enemyStats;
+            public GameObject enemyPrefab;
+            public EnemyHerd_SO maxHerd;
+        }
+
+        public List<Enemy> enemiesList;
+        public Dictionary<string, Queue<GameObject>> enemiesDictionary;
 
         private static EnemyPoolManager _instance;
         public static EnemyPoolManager instance { get { return _instance; } }
 
-        // Start is called before the first frame update
-        void Start()
+        #region Singleton
+        void Awake()
         {
             if (instance != null && instance != this)
                 Destroy(this);
@@ -22,29 +29,47 @@ namespace Moving_Tower
 
             AllocatePool();
         }
+        #endregion Singleton
 
         private void AllocatePool()
         {
+            enemiesDictionary = new Dictionary<string, Queue<GameObject>>();
+
             GameObject poolHolder = new GameObject("EnemyPool");
             poolHolder.transform.parent = transform;
-
-            for (int i = 0; i < 10; i++)
+            
+            foreach (Enemy enemy in enemiesList)
             {
-                GameObject enemy = Instantiate(enemyPrefab, poolHolder.transform);
-                enemy.name = "enemy" + i;
-                enemy.gameObject.SetActive(false);
+                Queue<GameObject> enemyQueue = new Queue<GameObject>();
 
-                enemyPool.Enqueue(enemy);
+                for (int i = 0; i < enemy.maxHerd.herdCount; i++)
+                {
+                    GameObject tempEnemy = Instantiate(enemy.enemyPrefab, poolHolder.transform);
+                    tempEnemy.name = "enemy" + i;
+                    tempEnemy.gameObject.SetActive(false);
+
+                    enemyQueue.Enqueue(tempEnemy);
+                }
+
+                enemiesDictionary.Add(enemy.enemyStats.tag, enemyQueue);
             }
         }
 
-        public GameObject ReuseEnemy(Vector3 position, Quaternion rotation)
+        public GameObject ReuseEnemy(string tag, Vector3 position, Quaternion rotation)
         {
-            GameObject tempEnemy = enemyPool.Dequeue();
-            enemyPool.Enqueue(tempEnemy);
+            if (!enemiesDictionary.ContainsKey(tag))
+            {
+                Debug.LogWarning($"Pool With Tag {tag} does not exist");
+                return null;
+            }
+
+            GameObject tempEnemy = enemiesDictionary[tag].Dequeue();
+
             tempEnemy.SetActive(true);
             tempEnemy.transform.position = position;
             tempEnemy.transform.rotation = rotation;
+
+            enemiesDictionary[tag].Enqueue(tempEnemy);
 
             return tempEnemy;
         }

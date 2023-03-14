@@ -38,8 +38,10 @@ namespace Moving_Tower
         {
             int randomIndex = Random.Range(0, spawnPoints.Count);
 
-            var enemy = EnemyPoolManager.instance.ReuseEnemy(spawnPoints[randomIndex], Quaternion.identity);
-            enemy.GetComponent<EnemyController>().SetWayPoints((byte)randomIndex);
+            int spawnUnitIndex = Random.Range(0, 4);
+
+            var enemy = EnemyPoolManager.instance.ReuseEnemy("Foot_Soldier", spawnPoints[randomIndex], Quaternion.identity);
+            enemy.GetComponent<EnemyController>().OnObjectSpawn((byte)randomIndex);
 
             if (!stopSpawn)
                 Invoke("SpawnEnemy", spawnInterval);            //Invoke Spawn after a set time interval

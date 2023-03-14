@@ -4,23 +4,23 @@ using UnityEngine;
 
 namespace Moving_Tower
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IEnemyObject
     {
         [SerializeField] private WayPoints_SO waypoints;
         [SerializeField] private Enemy_SO enemyStats;
         private Vector3 targetDir;
-        private int wayPointCount = 0;
+
+        private byte _wayPointCount = 0;
+        public byte wayPointCount { set => _wayPointCount = value; }
 
         // Start is called before the first frame update
-        void Start()
+        public void OnObjectSpawn(byte wayPointIndex)
         {
             enemyStats = GameManager.instance.enemyStats[2];            //by default the unit will be a normal unit
-        }
 
-        public void SetWayPoints(byte waypointIndex)
-        {
-            waypoints = GameManager.instance.wayPoints[waypointIndex];
-            targetDir = waypoints.wayPoints[wayPointCount] - transform.position;
+            waypoints = GameManager.instance.wayPointsList[wayPointIndex];
+            targetDir = waypoints.wayPoints[_wayPointCount] - transform.position;
+
         }
 
         // Update is called once per frame
@@ -28,16 +28,16 @@ namespace Moving_Tower
         {
             transform.Translate(targetDir.normalized * enemyStats.speed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, waypoints.wayPoints[wayPointCount]) <= 0.4f)
+            if (Vector3.Distance(transform.position, waypoints.wayPoints[_wayPointCount]) <= 0.4f)
                 UpdateWayPoint();
         }
 
         private void UpdateWayPoint()
         {
-            if (wayPointCount < waypoints.wayPoints.Count - 1)
+            if (_wayPointCount < waypoints.wayPoints.Count - 1)
             {
-                wayPointCount++;
-                targetDir = waypoints.wayPoints[wayPointCount] - transform.position;
+                _wayPointCount++;
+                targetDir = waypoints.wayPoints[_wayPointCount] - transform.position;
             }
             else
             {
@@ -49,7 +49,7 @@ namespace Moving_Tower
         private void ResetEnemy()
         {
             gameObject.SetActive(false);
-            wayPointCount = 0;
+            _wayPointCount = 0;
         }
     }
 }
