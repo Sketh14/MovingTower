@@ -7,7 +7,8 @@ namespace Moving_Tower
     public class EnemySpawner : MonoBehaviour
     {
         [Header("Prefabs")]
-        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private string[] enemyTags;
+        [SerializeField] private EnemyHerdFormations_SO[] enemyHerdDetails;
 
         [Header("Spawn Controls")]
         [SerializeField] private List<Vector3> spawnPoints;
@@ -38,9 +39,9 @@ namespace Moving_Tower
         {
             int randomIndex = Random.Range(0, spawnPoints.Count);
 
-            int spawnUnitIndex = Random.Range(0, 4);
+            int spawnUnitIndex = Random.Range(0, 5);
 
-            var enemy = EnemyPoolManager.instance.ReuseEnemy("Foot_Soldier", spawnPoints[randomIndex], Quaternion.identity);
+            var enemy = EnemyPoolManager.instance.ReuseEnemy(enemyTags[spawnUnitIndex], spawnPoints[randomIndex], Quaternion.identity);
             enemy.GetComponent<EnemyController>().OnObjectSpawn((byte)randomIndex);
 
             if (!stopSpawn)

@@ -349,7 +349,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f952b272c6d25f04ca54d76c1dad59a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 334782680816243342, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
+  enemyTags:
+  - DebugUnit
+  - FootSoldier
+  - HorseMen
+  - MobileUnit2
+  - AirUnit1
+  enemyHerdDetails: []
   spawnPoints:
   - {x: 18, y: 4.4, z: -63}
   - {x: -18, y: 4.4, z: -63}
@@ -787,9 +793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3230936d624d75441bb91fa0036755a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wayPoints:
-  - {fileID: 11400000, guid: 808f631a7ad9fb74fa0e3f03958a7627, type: 2}
+  wayPointsList:
   - {fileID: 11400000, guid: c80c338a6259af94fb373dfda02465a7, type: 2}
+  - {fileID: 11400000, guid: 808f631a7ad9fb74fa0e3f03958a7627, type: 2}
   - {fileID: 11400000, guid: bb19083dff01c09489c6d2c366f2efad, type: 2}
   - {fileID: 11400000, guid: f7bd413676c3b174a985c81fe32deefa, type: 2}
   enemyStats:
@@ -1654,7 +1660,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee6c9749d27902948ad9f6e45dde6a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 334782680816243342, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
+  enemiesList:
+  - enemyStats: {fileID: 11400000, guid: ca854d43e0c06184e972ea720a32635d, type: 2}
+    enemyPrefab: {fileID: 334782680816243342, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
+    enemyHerdFormations: {fileID: 0}
+  - enemyStats: {fileID: 11400000, guid: 51d2c9a26b21b2341b99c51de94cee49, type: 2}
+    enemyPrefab: {fileID: 334782680816243342, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
+    enemyHerdFormations: {fileID: 0}
+  - enemyStats: {fileID: 11400000, guid: 2c04f74fcc84170488cab4be4d04f947, type: 2}
+    enemyPrefab: {fileID: 334782680816243342, guid: 1e433afc58a00cd4e899e8d223ff50e4, type: 3}
+    enemyHerdFormations: {fileID: 0}
+  - enemyStats: {fileID: 11400000, guid: 9aa11df6cb68046488350b40edb5ce47, type: 2}
+    enemyPrefab: {fileID: 334782680816243342, guid: 5f175a03667b0474885ad73c1674dfa2, type: 3}
+    enemyHerdFormations: {fileID: 0}
+  - enemyStats: {fileID: 11400000, guid: 9788ca7800988cc4ba83ac1bf79c31af, type: 2}
+    enemyPrefab: {fileID: 334782680816243342, guid: 14a8d4713dc7f23439d8c9270a3f2f84, type: 3}
+    enemyHerdFormations: {fileID: 0}
+  maxEnemyCount: 6
 --- !u!4 &1780964494
 Transform:
   m_ObjectHideFlags: 0

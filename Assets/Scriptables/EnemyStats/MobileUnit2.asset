@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c3ba564e3c074f9c9ad2679d4c9c5, type: 3}
   m_Name: MobileUnit2
   m_EditorClassIdentifier: 
+  tag: MobileUnit2
   speed: 7

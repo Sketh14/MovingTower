@@ -22,7 +22,7 @@ namespace Moving_Tower
         // Start is called before the first frame update
         void Start()
         {
-            if (_instance != null)
+            if (_instance != null && _instance != this)
                 Destroy(this);
             else
                 _instance = this;

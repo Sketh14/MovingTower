@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 334782680816243341}
   - component: {fileID: 7992000170642944797}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Foot_Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: {fileID: 0}
-  enemyStats: {fileID: 0}
+  enemyStats: {fileID: 11400000, guid: 51d2c9a26b21b2341b99c51de94cee49, type: 2}
 --- !u!1 &334782681025240880
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 285185a59fe3b0747ad0944b9affb792, type: 2}
+  - {fileID: 2100000, guid: a9fedd43b8ce5024fad16990b3a42040, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

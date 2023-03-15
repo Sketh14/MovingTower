@@ -10,11 +10,12 @@ namespace Moving_Tower
         {
             public Enemy_SO enemyStats;
             public GameObject enemyPrefab;
-            public EnemyHerd_SO maxHerd;
+            public EnemyHerdFormations_SO enemyHerdFormations;
         }
 
         public List<Enemy> enemiesList;
         public Dictionary<string, Queue<GameObject>> enemiesDictionary;
+        [SerializeField] private int maxEnemyCount;
 
         private static EnemyPoolManager _instance;
         public static EnemyPoolManager instance { get { return _instance; } }
@@ -35,17 +36,19 @@ namespace Moving_Tower
         {
             enemiesDictionary = new Dictionary<string, Queue<GameObject>>();
 
-            GameObject poolHolder = new GameObject("EnemyPool");
-            poolHolder.transform.parent = transform;
             
             foreach (Enemy enemy in enemiesList)
             {
+                GameObject poolHolder = new GameObject("EnemyPool_" + enemy.enemyStats.tag);
+                poolHolder.transform.parent = transform;
+
                 Queue<GameObject> enemyQueue = new Queue<GameObject>();
 
-                for (int i = 0; i < enemy.maxHerd.herdCount; i++)
+                //Change this so that the Enemies are instantiated at each level and not the same quantity for every level
+                for (int i = 0; i < maxEnemyCount; i++)
                 {
                     GameObject tempEnemy = Instantiate(enemy.enemyPrefab, poolHolder.transform);
-                    tempEnemy.name = "enemy" + i;
+                    tempEnemy.name = enemy.enemyStats.tag + i;
                     tempEnemy.gameObject.SetActive(false);
 
                     enemyQueue.Enqueue(tempEnemy);

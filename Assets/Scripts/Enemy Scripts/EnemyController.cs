@@ -16,7 +16,6 @@ namespace Moving_Tower
         // Start is called before the first frame update
         public void OnObjectSpawn(byte wayPointIndex)
         {
-            enemyStats = GameManager.instance.enemyStats[2];            //by default the unit will be a normal unit
 
             waypoints = GameManager.instance.wayPointsList[wayPointIndex];
             targetDir = waypoints.wayPoints[_wayPointCount] - transform.position;
