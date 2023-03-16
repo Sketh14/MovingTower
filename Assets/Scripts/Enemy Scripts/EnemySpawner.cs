@@ -8,16 +8,17 @@ namespace Moving_Tower
     {
         [Header("Prefabs")]
         [SerializeField] private string[] enemyTags;
-        [SerializeField] private EnemyHerdFormations_SO[] enemyHerdDetails;
+        [SerializeField] private EnemyHerdFormations_SO[] enemyHerdFormations;
 
         [Header("Spawn Controls")]
         [SerializeField] private List<Vector3> spawnPoints;
-        [Range(1f, 5f)]
+        private byte spawnUnitIndex = 0, totalHerdForamtions = 0, herdCount = 0, spawnCount = 0, spawnRandomIndex = 0;
+        //[Range(1f, 5f)]
         [SerializeField] private float spawnInterval = 1f;
-        private bool stopSpawn;
+        //private bool stopSpawn;
 
         [Header("Testing Variables")]
-        [SerializeField] private byte spawnCount = 0, invokeCount = 0;
+        private byte invokeCount = 0;
 
         private void OnEnable()
         {
@@ -32,26 +33,40 @@ namespace Moving_Tower
         // Start is called before the first frame update
         private void Start()
         {
-            Invoke("SpawnEnemy", spawnInterval);
+            Invoke("SpawnEnemy", 0f);
         }
 
         private void SpawnEnemy()
         {
-            int randomIndex = Random.Range(0, spawnPoints.Count);
+            spawnRandomIndex = (byte) Random.Range(0, spawnPoints.Count);
+            spawnUnitIndex = (byte) Random.Range(0, 5);
+            spawnInterval = enemyHerdFormations[spawnUnitIndex].spawnInterval;
+            totalHerdForamtions = (byte) enemyHerdFormations[spawnUnitIndex].totalHerdForamtions;
+            herdCount = (byte) enemyHerdFormations[spawnUnitIndex].herdFormations[Random.Range(0, totalHerdForamtions)].herdCount;
+            Debug.Log($"Name : {enemyHerdFormations[spawnUnitIndex].name}, SpawnUnitIndex : {spawnUnitIndex}, " +
+                $"spawnInterval : {spawnInterval}, totalHerdFormations : {totalHerdForamtions}, " +
+                $"herdCount : {herdCount}");
 
-            int spawnUnitIndex = Random.Range(0, 5);
-
-            var enemy = EnemyPoolManager.instance.ReuseEnemy(enemyTags[spawnUnitIndex], spawnPoints[randomIndex], Quaternion.identity);
-            enemy.GetComponent<EnemyController>().OnObjectSpawn((byte)randomIndex);
-
-            if (!stopSpawn)
-                Invoke("SpawnEnemy", spawnInterval);            //Invoke Spawn after a set time interval
+            SpawnEnemyObject();
 
             #region Testing
             //spawnCount++;
             //if (spawnCount < invokeCount)
             //    Invoke("SpawnEnemy", spawnInterval);            //Invoke Spawn after a set time interval
             #endregion Testing
+        }
+
+        private void SpawnEnemyObject()
+        {
+            if (spawnCount < herdCount)
+            {
+
+                var enemy = EnemyPoolManager.instance.ReuseEnemy(enemyTags[spawnUnitIndex], spawnPoints[spawnRandomIndex], Quaternion.identity);
+                enemy.GetComponent<EnemyController>().OnObjectSpawn((byte)spawnRandomIndex);
+                spawnCount++;
+                
+                Invoke("SpawnEnemyObject", spawnInterval);            //Invoke Spawn after a set time interval
+            }
         }
 
         private void StopEnemySpawn()

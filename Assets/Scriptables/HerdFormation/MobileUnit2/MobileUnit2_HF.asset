@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cba8c1a7ae88a64ea87e32b76019b43, type: 3}
-  m_Name: FootSoldier_HF
-  m_EditorClassIdentifier: Assembly-CSharp:Moving_Tower:EnemyHerdFormations_SO
-  totalHerdForamtions: 3
-  spawnInterval: 1.5
+  m_Name: MobileUnit2_HF
+  m_EditorClassIdentifier: 
+  totalHerdForamtions: 2
+  spawnInterval: 4
   herdFormations:
-  - {fileID: 11400000, guid: 1d804157b88dd9e43a7c1889bff207ba, type: 2}
-  - {fileID: 11400000, guid: 929d15cc22ca5284fb5304ce0e159e9a, type: 2}
-  - {fileID: 11400000, guid: 7a85402abb445754782c49bf97f3d4cd, type: 2}
+  - {fileID: 11400000, guid: fd4bfd7c573975042a0091e0f6ba228b, type: 2}
+  - {fileID: 11400000, guid: 4789e8aea82241b47a815fbc25c24f3d, type: 2}

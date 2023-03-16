@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a41d20ce79963184a8f2d98e3b1726ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 22ebe447be0f1b646a9a165d83b32130, type: 3}
   m_Name: Herd1
   m_EditorClassIdentifier: 
-  herdCount: 3
+  herdTag: HM_Herd1
+  herdCount: 4
