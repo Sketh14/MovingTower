@@ -7,6 +7,7 @@ namespace Moving_Tower
     public class GameManager : MonoBehaviour
     {
         public List<WayPoints_SO> wayPointsList;
+        public List<GameObject> activeEnemies;          //Can be made to array for quicker access
 
         [Header ("Reference Scripts")]
         public GameLogic gameLogicReference;

@@ -801,6 +801,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 808f631a7ad9fb74fa0e3f03958a7627, type: 2}
   - {fileID: 11400000, guid: bb19083dff01c09489c6d2c366f2efad, type: 2}
   - {fileID: 11400000, guid: f7bd413676c3b174a985c81fe32deefa, type: 2}
+  activeEnemies: []
   gameLogicReference: {fileID: 1206723670}
   enemySpawnerReference: {fileID: 316196616}
 --- !u!4 &865955283
@@ -2081,6 +2082,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 334782680816243340, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 334782680816243342, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -2088,6 +2093,10 @@ PrefabInstance:
     - target: {fileID: 334782680816243342, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 334782680816243342, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 7992000170642944797, guid: 97ea29c35a7a1fe41b0644a0a261576e, type: 3}
       propertyPath: m_Enabled
@@ -2262,8 +2271,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotate: 1
-  move: 0
-  targetObject: {fileID: 782800712}
+  enemyFound: 0
+  enemyLeft: 0
+  activeTarget: {fileID: 0}
+  _turretRange: 0
 --- !u!1001 &8903014700802618934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2272,9 +2283,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4538196304674831800, guid: f4bb901d727f4de4bb60fa576081aba3, type: 3}
+      propertyPath: _turretRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538196304674831800, guid: f4bb901d727f4de4bb60fa576081aba3, type: 3}
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 782800712}
+    - target: {fileID: 4538196304674831800, guid: f4bb901d727f4de4bb60fa576081aba3, type: 3}
+      propertyPath: _turrentRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7918697599271840232, guid: f4bb901d727f4de4bb60fa576081aba3, type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8146170262121882212, guid: f4bb901d727f4de4bb60fa576081aba3, type: 3}
       propertyPath: m_RootOrder
       value: 1

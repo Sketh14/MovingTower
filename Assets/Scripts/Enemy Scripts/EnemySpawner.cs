@@ -60,11 +60,11 @@ namespace Moving_Tower
         {
             if (spawnCount < herdCount)
             {
-
                 var enemy = EnemyPoolManager.instance.ReuseEnemy(enemyTags[spawnUnitIndex], spawnPoints[spawnRandomIndex], Quaternion.identity);
                 enemy.GetComponent<EnemyController>().OnObjectSpawn((byte)spawnRandomIndex);
                 spawnCount++;
                 
+                GameManager.instance.activeEnemies.Add(enemy);
                 Invoke("SpawnEnemyObject", spawnInterval);            //Invoke Spawn after a set time interval
             }
         }
