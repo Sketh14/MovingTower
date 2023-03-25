@@ -1,0 +1,23 @@
+--------------------------------------------------------------------------------------
+									19 March 2023
+--------------------------------------------------------------------------------------
+:- [Do] Can make a mechanism so that the player can select the enemy to shoot at
+:- [Do] Enemies after a herd of enemies will detect the front enemies and wait for them, and go after 
+		follwing them
+:- [Do] Make bullet mechanics
+
+--------------------------------------------------------------------------------------
+									22 March 2023
+--------------------------------------------------------------------------------------
+:- Modifying the Collider of Enemies
+:- Modifying the rotation of the turret code, as the turret always moves into the initial rotation where the enemy was located first, but the enemy is gone by now.
+:- Overlapsphere giving false values
+
+--------------------------------------------------------------------------------------
+									23 March 2023
+--------------------------------------------------------------------------------------
+:- Ditching Overlapsphere and going for a list of gameobjects and cycling positions to check whichever is nearest or within the turret radius.
+:- Also the enemies were not spawning properly because they were being instantiated on origin at the point of the turret and within turret range, so when calling for reusing enemy object, the enemy was being activated first which led to it being detected and then being reloacted to other position. Yeah, that was it.
+:- Making use of Rotating Turret Mechanism 2, calculating a value of difference of 3 makes the turret rotate properly for now.
+:- [Working] Working on collecting the tower and moving it around.
+:- [Working] Figure out new Action System

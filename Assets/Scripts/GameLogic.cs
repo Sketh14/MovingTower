@@ -7,6 +7,7 @@ namespace Moving_Tower
     public class GameLogic : MonoBehaviour
     {
         public System.Action OnCastleReached;
+        public System.Action OnTowerCollected;
 
         private void OnEnable()
         {

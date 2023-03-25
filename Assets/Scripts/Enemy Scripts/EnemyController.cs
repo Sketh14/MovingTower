@@ -45,6 +45,11 @@ namespace Moving_Tower
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            //Debug.Log($"Collider : {other.name}");
+        }
+
         private void ResetEnemy()
         {
             gameObject.SetActive(false);

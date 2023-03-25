@@ -12,9 +12,10 @@ namespace Moving_Tower
 
         [Header("Spawn Controls")]
         [SerializeField] private List<Vector3> spawnPoints;
-        private byte spawnUnitIndex = 0, totalHerdForamtions = 0, herdCount = 0, spawnCount = 0, spawnRandomIndex = 0;
+        private byte spawnUnitIndex = 0, totalHerdForamtions = 0, herdCount = 0, 
+            spawnCount = 0, spawnRandomIndex = 0, prevUnitIndex = 0;
         //[Range(1f, 5f)]
-        [SerializeField] private float spawnInterval = 1f;
+        [SerializeField] private float spawnInterval = 1f, waveInterval = 0f;
         //private bool stopSpawn;
 
         [Header("Testing Variables")]
@@ -38,8 +39,13 @@ namespace Moving_Tower
 
         private void SpawnEnemy()
         {
-            spawnRandomIndex = (byte) Random.Range(0, spawnPoints.Count);
-            spawnUnitIndex = (byte) Random.Range(0, 5);
+            //spawnRandomIndex = (byte) Random.Range(0, spawnPoints.Count);
+            spawnRandomIndex = 2;
+
+            //while (spawnUnitIndex == prevUnitIndex)
+            //    spawnUnitIndex = (byte) Random.Range(0, 5);            
+            spawnUnitIndex = 0;
+
             spawnInterval = enemyHerdFormations[spawnUnitIndex].spawnInterval;
             totalHerdForamtions = (byte) enemyHerdFormations[spawnUnitIndex].totalHerdForamtions;
             herdCount = (byte) enemyHerdFormations[spawnUnitIndex].herdFormations[Random.Range(0, totalHerdForamtions)].herdCount;
@@ -66,6 +72,12 @@ namespace Moving_Tower
                 
                 GameManager.instance.activeEnemies.Add(enemy);
                 Invoke("SpawnEnemyObject", spawnInterval);            //Invoke Spawn after a set time interval
+            }
+            else
+            {
+                prevUnitIndex = spawnUnitIndex;
+                spawnCount = 0;
+                Invoke("SpawnEnemy", waveInterval);            //Invoke Next Wave after a set time interval
             }
         }
 

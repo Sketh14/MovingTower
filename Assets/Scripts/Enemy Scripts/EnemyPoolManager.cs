@@ -68,9 +68,9 @@ namespace Moving_Tower
 
             GameObject tempEnemy = enemiesDictionary[tag].Dequeue();
 
-            tempEnemy.SetActive(true);
             tempEnemy.transform.position = position;
             tempEnemy.transform.rotation = rotation;
+            tempEnemy.SetActive(true);
 
             enemiesDictionary[tag].Enqueue(tempEnemy);
 

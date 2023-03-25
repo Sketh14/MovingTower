@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 334782680816243331}
   - component: {fileID: 334782680816243340}
   - component: {fileID: 334782680816243341}
-  - component: {fileID: 1275488650435557131}
   - component: {fileID: 4982635243728298927}
   - component: {fileID: 7992000170642944797}
   m_Layer: 0
-  m_Name: DebugUnit
+  m_Name: DebugUnit_Test
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,19 +100,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &1275488650435557131
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334782680816243342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.6, y: 2.43, z: 2.6}
-  m_Center: {x: 0, y: -0.716, z: 0}
 --- !u!54 &4982635243728298927
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -155,7 +141,6 @@ GameObject:
   - component: {fileID: 334782681025240887}
   - component: {fileID: 334782681025240884}
   - component: {fileID: 334782681025240885}
-  - component: {fileID: 334782681025240886}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -228,16 +213,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &334782681025240886
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334782681025240880}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
