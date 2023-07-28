@@ -11,7 +11,7 @@
                     "id": "fda9caf6-029a-4434-8c87-c74522a89c2c",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Hold(duration=0.2,pressPoint=0.1)",
+                    "interactions": "",
                     "initialStateCheck": true
                 },
                 {
@@ -30,6 +30,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "590d628a-74e7-4970-92e0-208f9c47a505",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=0.1)",
                     "initialStateCheck": false
                 }
             ],
@@ -251,6 +260,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "789ba107-7054-4548-bcc7-cd39d38e7cc7",
+                    "path": "<Keyboard>/#(F)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

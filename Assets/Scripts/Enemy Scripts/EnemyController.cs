@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Moving_Tower
@@ -10,6 +8,11 @@ namespace Moving_Tower
         [SerializeField] private Enemy_SO enemyStats;
         private Vector3 targetDir;
 
+        [Header("Stats Controls")]
+        private float health;
+        [SerializeField] private Transform statsCanvas;
+
+        [Space]
         private byte _wayPointCount = 0;
         public byte wayPointCount { set => _wayPointCount = value; }
 
@@ -29,6 +32,8 @@ namespace Moving_Tower
 
             if (Vector3.Distance(transform.position, waypoints.wayPoints[_wayPointCount]) <= 0.4f)
                 UpdateWayPoint();
+
+            statsCanvas.forward = Camera.main.transform.forward;
         }
 
         private void UpdateWayPoint()
@@ -52,8 +57,16 @@ namespace Moving_Tower
 
         private void ResetEnemy()
         {
-            gameObject.SetActive(false);
             _wayPointCount = 0;
+            gameObject.SetActive(false);
+        }
+
+        public void HitByBullet()
+        {
+            health -= GameManager.instance.currentBulletDamage;
+
+            if (health <= 0)
+                gameObject.SetActive(false);
         }
     }
 }

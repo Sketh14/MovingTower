@@ -21,3 +21,89 @@
 :- Making use of Rotating Turret Mechanism 2, calculating a value of difference of 3 makes the turret rotate properly for now.
 :- [Working] Working on collecting the tower and moving it around.
 :- [Working] Figure out new Action System
+
+--------------------------------------------------------------------------------------
+									26 March 2023
+--------------------------------------------------------------------------------------
+:- Made the movement system using new input action controls.
+:- [Working] Working on parenting and de-parenting the collected tower.
+
+--------------------------------------------------------------------------------------
+									04 April 2023
+--------------------------------------------------------------------------------------
+:- [Working] Parenting and de-parenting the tower from the player
+	(-) Apparently the trigger doesn't recognise the tower once it is coupled/child of, with the player
+	(-) Making a byte controller, so that the tower isnt let go as soon as it is collected.
+		[=] Having a byte to control tower status is more better to control.
+		
+--------------------------------------------------------------------------------------
+									16 July 2023
+--------------------------------------------------------------------------------------
+:- Laser still does not works properly.
+:- [Important] [Found Alternative] For checking if the enemy has left the perimeter, adding 2.8 to the radius check as the collider is of  	scale 2.6f on both x,z direction.
+	[=] Also the enemy scale is 2f for x,y,z.
+:- [Current] 2nd approach to detecting Enemy.
+	(-) Checking if the enemy is within the radius by checking distance from the tower.
+		[=] Keep a reference to the enabled enemies in a sript and keep checking the distance.
+			{-} Performance cost.
+		[=] Going with this approach for now, until better approach is made.
+:- [Fixed] Laser being wonky when targeting an active enemy
+	(-) [Fixed]The laser turned on but as soon as turning on, it is in the wrong direction.
+		[=] Calling FixedUpdate before turning on the laser.
+:- [Fix] Enemy Spawner.
+	(-) If the total count of specific unit is exhausted in 1 run, and the next run is called, enemies will be taken from the current run.
+		[=] The waypointCount never resets to 0. Also, they fking disappear while going to the castle.
+:- [Fix] Not all the troops need to be instantiated at the beginning
+	(-) Can make a level system.
+:- [Optimize] Check if it is possible to not run FixedUpdate everytime for the DrawLaser script.
+:- Changing the way player collects the tower
+	(-) As the trigger is already being checked, moving code there.
+		
+--------------------------------------------------------------------------------------
+									17 July 2023
+--------------------------------------------------------------------------------------
+:- [Do] Move the targeting laser to the top/another segment pointing the laser
+:- [Do] Can use the line renderer for the laser shot at the enemies.
+	(-) Define a specific length for the laser and then just update the start/tip of the laser, with adding the length to the line renderer as the end of the laser.
+:- [Do] Draw area to show how much the turret can reach.
+		
+--------------------------------------------------------------------------------------
+									19 July 2023
+--------------------------------------------------------------------------------------
+:- [Do] Can make a shader to cut out the sides of the circle projecting out of the plane.
+:- Perimeter Relationship -
+	=> Sprite - 24.8 / Turret Range - 15
+	=> Sprite - 28 / Turret Range - 17
+	(-) y=1.5x+2.5, does the job for now.
+:- Made a scope for the laser to come out of.
+		
+--------------------------------------------------------------------------------------
+									21 July 2023
+--------------------------------------------------------------------------------------
+:- [Do] Make Bullet Mechanism
+	(-) As soon as bullet is instantiated, it will be launchec forward using AddForce.
+	(-) When the bullet hits the enemy, OnTriggerEnter will detect if enemy, anf then call the damage function.
+	(-) The current damage of the bullet will be stored in GameManager, so that when power-ups are collected, the damage can be set accordingly.
+:- [Do] Show that the enemy has taken damage.
+	(-) Some UI clue.
+:- [Do] Make a common UI to show health for enemies or the tower.
+		
+--------------------------------------------------------------------------------------
+									28 July 2023
+--------------------------------------------------------------------------------------
+:- The stats canvas always faces the camera.
+:- [Do] Decide Shoot INterval.
+
+
+
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+		As a Customer Support Executive (4 Months) for Zomato, my job was to guide the customers having issues to a proper resolution and managing the relationship with our customers. As for Sales Executive (2 Months) for Lenskart, I was responsible for helping customers in making purchases and providing relevant information about
+		
+		As a Unity3D Developer, I am responsible for developing projects based on our clients requirements with the help of other team members and also making small scale games.  I have worked with the Mediapipe SDK plugin, AR Foundation and a bit of Vuforia.
+		As a Game Developer Intern, I was responsible for the development of a small game under the guidance of my TL and other team members, also making sure that targets were achieved in set time.
+		
+		Beer Pong - AR
+		https://play.google.com/store/apps/details?id=com.ElectroBolt.BhagodaNinja
+		Bhagoda Ninja
+		Double Jump

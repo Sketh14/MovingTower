@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+namespace Moving_Tower
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BulletController : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Rigidbody bulletRb;
+        [SerializeField] private float bulletSpeed = 5f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Start is called before the first frame update
+        void Start()
+        {
+            bulletRb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                other.GetComponent<EnemyController>().HitByBullet();
+                gameObject.SetActive(false);
+            }
+        }
     }
 }

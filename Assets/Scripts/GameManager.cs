@@ -7,7 +7,11 @@ namespace Moving_Tower
     public class GameManager : MonoBehaviour
     {
         public List<WayPoints_SO> wayPointsList;
-        public List<GameObject> activeEnemies;          //Can be made to array for quicker access
+        public List<Transform> activeEnemies;          //Can be made to array for quicker access
+
+        public float currentBulletDamage;
+        //[Header("Test Variable")]
+        //public Transform activeTarget;
 
         [Header ("Reference Scripts")]
         public GameLogic gameLogicReference;

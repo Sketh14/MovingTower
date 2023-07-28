@@ -70,7 +70,7 @@ namespace Moving_Tower
                 enemy.GetComponent<EnemyController>().OnObjectSpawn((byte)spawnRandomIndex);
                 spawnCount++;
                 
-                GameManager.instance.activeEnemies.Add(enemy);
+                GameManager.instance.activeEnemies.Add(enemy.transform);
                 Invoke("SpawnEnemyObject", spawnInterval);            //Invoke Spawn after a set time interval
             }
             else

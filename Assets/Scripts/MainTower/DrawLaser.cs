@@ -38,6 +38,8 @@ namespace Moving_Tower
         public void EnableLaser(bool status)
         {
             //Debug.Log($"Laser Status : {status}");
+            FixedUpdate();  //update laser position
+
             laserProjection.enabled = status;
             laserProjection.SetPosition(1, transform.position);
         }
