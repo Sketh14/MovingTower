@@ -145,7 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: ca854d43e0c06184e972ea720a32635d, type: 2}
+  health: 100
   statsCanvas: {fileID: 6380667000836653520}
+  healthTxt: {fileID: 3028107153807342440}
 --- !u!1 &334782681025240880
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +257,7 @@ GameObject:
   - component: {fileID: 1196098267437441892}
   - component: {fileID: 3028107153807342440}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Health (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,7 +311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

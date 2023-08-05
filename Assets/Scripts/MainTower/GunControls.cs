@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Moving_Tower
@@ -11,11 +9,16 @@ namespace Moving_Tower
         [SerializeField] private bool testRange;
 
         [Space]
-        [SerializeField] private bool rotate, enemyFound, enemyLeft, enableTurret, enableShooting;
+        [SerializeField] private bool rotate, enemyFound, enemyLeft, enableTurret;
         [SerializeField] private Transform activeTarget, radiusCheck;
         private Quaternion startRot, finalRot;
         private Vector3 tempVec1, tempVec2;
         private float time;
+
+        [Header("Shoot Controls")]
+        [SerializeField] private bool enableShooting;
+        [SerializeField] private Transform shootingPoint;
+        [SerializeField] private ParticleSystem gunFlash;
         [SerializeField] private float shootInterval = 1f;
 
         [Header("Local Reference Scritps")]
@@ -32,17 +35,21 @@ namespace Moving_Tower
         private void OnEnable()
         {
             localGameLogic.OnTowerCollected += DisableTurret;
+            localGameLogic.OnEnemyKilled += DisableShooting;
         }
 
         private void OnDisable()
         {
             localGameLogic.OnTowerCollected -= DisableTurret;
+            localGameLogic.OnEnemyKilled -= DisableShooting;
         }
 
         private void Start()
         {
             GameManager.instance.currentBulletDamage = 10;
         }
+
+        #region TurretControls
 
         // Update is called once per frame
         private void FixedUpdate()
@@ -57,7 +64,7 @@ namespace Moving_Tower
                 if (!enableShooting)
                 {
                     enableShooting = true;
-                    InvokeRepeating(nameof(ShootBullets), 0f, 1f);
+                    InvokeRepeating(nameof(ShootBullets), 0f, shootInterval);
                 }
 
                 //transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, transform.eulerAngles.z);
@@ -109,15 +116,36 @@ namespace Moving_Tower
             }
         }
 
-        private void ShootBullets()
-        {
-
-        }
-
         private void DisableTurret(bool towerMoveStatus)
         {
-            enableTurret = false;
+            enableTurret = !towerMoveStatus;
+
+            if (towerMoveStatus)
+                DisableShooting();
         }
+
+        private void DisableShooting()
+        {
+            //Debug.Log("Disabling Shooting");
+
+            enemyFound = false;
+            activeTarget = null;
+            rotate = false;
+            localDrawLaser.targetFound = false;
+            localDrawLaser.EnableLaser(false);
+
+            enableShooting = false;
+            CancelInvoke(nameof(ShootBullets));
+        }
+        #endregion TurretControls
+
+        private void ShootBullets()
+        {
+            gunFlash.Play();
+            GameObject tempBullet = BulletPoolManager.instance.ReuseBullet("Bullet", shootingPoint);
+            tempBullet.SetActive(true);
+        }
+
         #region TurretRotation
         //Wait for the turret to face the direction of the enemy
         /*public IEnumerator RotateToDirection(Transform positionToLook, float timeToRotate)
@@ -203,14 +231,17 @@ namespace Moving_Tower
                 List<Transform> enemies = GameManager.instance.activeEnemies;
                 foreach (Transform t in enemies)
                 {
-                    tempVec2 = new Vector3(t.position.x, 0f, t.position.z);
-
-                    if ((tempVec1 - tempVec2).sqrMagnitude <= _turretRange * _turretRange)
+                    if (t.gameObject.activeSelf)
                     {
-                        //Debug.Log($"Enemy :{t.name}, Found After : {enemyFound}, Distance : " + (tempVec1 - tempVec2).sqrMagnitude);
+                        tempVec2 = new Vector3(t.position.x, 0f, t.position.z);
 
-                        enemyFound = true;
-                        return t;
+                        if ((tempVec1 - tempVec2).sqrMagnitude <= _turretRange * _turretRange)
+                        {
+                            //Debug.Log($"Enemy :{t.name}, Found After : {enemyFound}, Distance : " + (tempVec1 - tempVec2).sqrMagnitude);
+
+                            enemyFound = true;
+                            return t;
+                        }
                     }
                 }
             }
@@ -225,11 +256,17 @@ namespace Moving_Tower
             if (activeTarget != null && (tempVec1 - tempVec2).sqrMagnitude >= _turretRange * _turretRange )
             {
                 //Debug.Log($"Target Left, Diff : {(tempVec1 - tempVec2).sqrMagnitude}");
-                enemyFound = false;
+                DisableShooting();
+
+                /*enemyFound = false;
                 activeTarget = null;
                 rotate = false;
                 localDrawLaser.targetFound = false;
                 localDrawLaser.EnableLaser(false);
+
+                enableShooting = false;
+                CancelInvoke(nameof(ShootBullets));*/
+
                 //localDrawLaser.enabled = false;
             }
         }

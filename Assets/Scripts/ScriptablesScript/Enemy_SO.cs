@@ -7,5 +7,6 @@ namespace Moving_Tower
     {
         public string tag;
         public float speed;
+        public float health;
     }
 }

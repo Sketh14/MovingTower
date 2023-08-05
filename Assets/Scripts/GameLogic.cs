@@ -6,7 +6,7 @@ namespace Moving_Tower
 {
     public class GameLogic : MonoBehaviour
     {
-        public System.Action OnCastleReached;
+        public System.Action OnCastleReached, OnEnemyKilled;
         public System.Action<bool> OnTowerCollected;
         public System.Action<byte> OnInteraction;
 

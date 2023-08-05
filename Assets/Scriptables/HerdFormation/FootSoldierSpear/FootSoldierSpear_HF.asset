@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cba8c1a7ae88a64ea87e32b76019b43, type: 3}
+  m_Name: FootSoldierSpear_HF
+  m_EditorClassIdentifier: Assembly-CSharp:Moving_Tower:EnemyHerdFormations_SO
+  totalHerdForamtions: 3
+  spawnInterval: 1.5
+  herdFormations:
+  - {fileID: 11400000, guid: 1d804157b88dd9e43a7c1889bff207ba, type: 2}
+  - {fileID: 11400000, guid: 929d15cc22ca5284fb5304ce0e159e9a, type: 2}
+  - {fileID: 11400000, guid: 7a85402abb445754782c49bf97f3d4cd, type: 2}

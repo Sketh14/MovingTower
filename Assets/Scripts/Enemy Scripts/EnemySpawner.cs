@@ -1,4 +1,5 @@
-using System.Collections;
+#define TEST_MODE
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,8 @@ namespace Moving_Tower
 
         [Header("Spawn Controls")]
         [SerializeField] private List<Vector3> spawnPoints;
-        private byte spawnUnitIndex = 0, totalHerdForamtions = 0, herdCount = 0, 
+        [SerializeField] private byte spawnUnitIndex = 0;
+        private byte totalHerdForamtions = 0, herdCount = 0, 
             spawnCount = 0, spawnRandomIndex = 0, prevUnitIndex = 0;
         //[Range(1f, 5f)]
         [SerializeField] private float spawnInterval = 1f, waveInterval = 0f;
@@ -42,9 +44,11 @@ namespace Moving_Tower
             //spawnRandomIndex = (byte) Random.Range(0, spawnPoints.Count);
             spawnRandomIndex = 2;
 
-            //while (spawnUnitIndex == prevUnitIndex)
-            //    spawnUnitIndex = (byte) Random.Range(0, 5);            
-            spawnUnitIndex = 0;
+#if !TEST_MODE
+            while (spawnUnitIndex == prevUnitIndex)
+                spawnUnitIndex = (byte) Random.Range(0, 5);            
+            //spawnUnitIndex = 0;
+#endif
 
             spawnInterval = enemyHerdFormations[spawnUnitIndex].spawnInterval;
             totalHerdForamtions = (byte) enemyHerdFormations[spawnUnitIndex].totalHerdForamtions;

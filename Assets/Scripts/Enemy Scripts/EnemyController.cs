@@ -9,8 +9,10 @@ namespace Moving_Tower
         private Vector3 targetDir;
 
         [Header("Stats Controls")]
-        private float health;
+        private float health = 100;
         [SerializeField] private Transform statsCanvas;
+        [SerializeField] private TMPro.TMP_Text healthTxt;
+        private const string BULLET_TAG = "Bullet";
 
         [Space]
         private byte _wayPointCount = 0;
@@ -22,7 +24,8 @@ namespace Moving_Tower
 
             waypoints = GameManager.instance.wayPointsList[wayPointIndex];
             targetDir = waypoints.wayPoints[_wayPointCount] - transform.position;
-
+            health = enemyStats.health;
+            healthTxt.text = health.ToString();
         }
 
         // Update is called once per frame
@@ -53,6 +56,11 @@ namespace Moving_Tower
         private void OnTriggerEnter(Collider other)
         {
             //Debug.Log($"Collider : {other.name}");
+            if (other.CompareTag(BULLET_TAG))
+            {
+                HitByBullet();
+                other.gameObject.SetActive(false);
+            }
         }
 
         private void ResetEnemy()
@@ -64,9 +72,13 @@ namespace Moving_Tower
         public void HitByBullet()
         {
             health -= GameManager.instance.currentBulletDamage;
+            healthTxt.text = health.ToString();
 
             if (health <= 0)
+            {
+                GameManager.instance.gameLogicReference.OnEnemyKilled?.Invoke();
                 gameObject.SetActive(false);
+            }
         }
     }
 }

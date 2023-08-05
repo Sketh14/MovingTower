@@ -35,7 +35,6 @@ namespace Moving_Tower
         private void AllocatePool()
         {
             enemiesDictionary = new Dictionary<string, Queue<GameObject>>();
-
             
             foreach (Enemy enemy in enemiesList)
             {

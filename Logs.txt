@@ -93,8 +93,108 @@
 --------------------------------------------------------------------------------------
 :- The stats canvas always faces the camera.
 :- [Do] Decide Shoot INterval.
+:- [Do] Make better system for bullet management
+	(-) Making a pool of bullets for now. Using that pool to get a bullet without the need to instantiate new ones.
+	(-) [Do] The bullet pool can be modified, accordingly to the powers which the player has. So, no need to instantiate every kind of bullet at once in the beginning.
+:- [Do] Check if the bullet hits the enemies.
+:- [Do] Adjust bullet speed.
+	(-) Setting Bullet speed to 150 for now.
+	(-) Changing back to 130.
+:- [Do] Make different stats for different units.
+:- Reset bullet velocity after hitting enemy.
+:- [Fixed For Now] OnTriggerStay gets skipped certain times for picking up tower.
+	(-) Update picks up the key press.
+		[=] Setting a counter instead of checking in the OnTriggerStay.
+		[=] Moved code to update, OnTriggerStay will only turn counter on, rest everything will be on update.
+:- [Fixed For Now] Tower Controls to disable when picked up/put down
+	(-) Tower keeps shooting if picked up while shooting.
+	(-) Tower does not shoot again once piicked up and put down.
+	(-) Reset tower stats when picked up/put down.
+:- [Do] Reset Soldier stats once they reach castle.
+:- [Fix] Gun keeps shooting once the enemy is dead.
+	(-) Under CheckWithinPerimeter2, checking whether the enemy is active or not. If not active then skipping the enemy.
+:- [Important] [Do] Decide enemy waves accordingly
+	(-) [Do] Decide initial tower stats.
+	(-) [Do] Decide Gameplay.
+:- [Do] Make the bullets bigger.
+:- [Do] Turret Controls :-
+	(-) Make animation for Gun flash.
+		[=] Only single big sphere to show bullet has ben shot?
+
+--------------------------------------------------------------------------------------
+									29 July 2023
+--------------------------------------------------------------------------------------
+:- Changing Bullet Mechanics
+	(-) Not using rigidbody, instead using Transform.Translate instead.
+	(-) Moving bullet detection to Enemy Controller instead.
+:- [Fix] The bullets might collide with the ground.
+	(-) They almost do collide at extreme sides, but can be forgiven..
+:- Adding colliders at edges, so that player does not falls over.
+:- [Fix] player cannot go over to the next platforms.
+	(-) Fix bridge, no curved bridge
+	(-) Plain bridge with only 1 box collider.
+	(-) Changing player collider to capsule collider.
+:- Player Movement
+	(-) Not using velocity on player, but using Translate.
+		[=] Original moveSpeedmultiplier is 12, changing to 0.5.
+		[=] Translate seems better option and is smooth for now.
+		[=] [Fix] Translate ignores the colliders set so that player does not fall.
+		[=] If player falls from platform or bridge, player goes through the platforms and just pops up.
+	(-) [Current Fix] Reverting back to AddForce, but using Impulse instead.
+		[=] Increasing drag to 5 on player's rigidbody.
+		[=] Changing moveSpeedmultiplier to 2.
+	(-) The player floats if crossing the curved bridge.
+:- [Done For Now] Make controls according to the floating joystick.
+	
+:- UI
+	(-) As this is mainly for mobile..
+	(-) [Done For Now] Joystick at the bottom of the screen?
+		[=] Keeping Floating Joystick for now.
+			(+) Changing text of interact to "Pick Up"/"Put Down" accordingly.
+			(+) Changing color of the interact button to red/cyan accordingly.
+			(+) Instead of Prompt, we get button to be enabled.
+	(-) [Do] Interaction button pops up to press, when interaction is to be done.
+	(-) Making space for UI at the bottom.
+		[=] Original camera stats
+			(+) Vector3(0,47.4000015,-45.0999985) - position
+			(+) Vector3(45,0,0) - rotation
+			(+) 49.5 - size
+		[=] Changing camera stats wont do jexkshyte.
+			(+) Need to change spawn positions and make UI at the bottom just like this accordingly.
 
 
+--------------------------------------------------------------------------------------
+									01 AUGUST 2023
+--------------------------------------------------------------------------------------
+:- Making unique enemies.
+
+	[ADVANCDED MECHANIC]
+:- [Suggestion] Can make a barricade or gate or wooden blockade/wooden planks blockade before the Castle entrance.
+	(-) Once enemy troops reach the gate, they will try to break the gate, chipping away at its health
+	(-) The player would have to constantly look at gate's health also
+	
+	[ENEMY STATS]
+:- Archers
+	(-) Good mix of infantry / medium pace / average damage
+	(-) 5 speed
+	(-) 70 health
+:- AirUnit1
+	(-) fast pace / light damage
+	(-) 8 speed
+	(-) 30 health
+:- Foot_Soldier_Spear
+	(-) slow than medium pace / greater damage
+	(-) 3 speed
+	(-) 120 health
+:- Foot_Soldier_Sword
+	(-) +1 pace more than spear / -2,3 less damage than spear
+	(-) 4 speed
+	(-) 100 health
+	
+:- [Do] Decide initial stats for Cannon.
+	(-) initial damage - 10
+	(-) fire rate - 0.4
+	(-) range - not decided
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------

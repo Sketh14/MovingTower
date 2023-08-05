@@ -290,7 +290,7 @@ namespace Moving_Tower
                 {
                     ""name"": """",
                     ""id"": ""789ba107-7054-4548-bcc7-cd39d38e7cc7"",
-                    ""path"": ""<Keyboard>/#(F)"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
