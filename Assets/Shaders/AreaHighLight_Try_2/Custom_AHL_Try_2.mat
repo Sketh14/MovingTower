@@ -30,5 +30,5 @@ Material:
     - _Offset: 1.02
     m_Colors:
     - _HighlightColor: {r: 1, g: 0, b: 0, a: 1}
-    - _RegularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RegularColor: {r: 0, g: 1, b: 0.8384063, a: 1}
   m_BuildTextureStacks: []

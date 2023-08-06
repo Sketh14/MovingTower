@@ -196,6 +196,17 @@
 	(-) fire rate - 0.4
 	(-) range - not decided
 
+--------------------------------------------------------------------------------------
+									04 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> Working on Area Highlight shader
+
+--------------------------------------------------------------------------------------
+									05 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> [Done For Now] Area Highlight shader
+
+
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
 		As a Customer Support Executive (4 Months) for Zomato, my job was to guide the customers having issues to a proper resolution and managing the relationship with our customers. As for Sales Executive (2 Months) for Lenskart, I was responsible for helping customers in making purchases and providing relevant information about

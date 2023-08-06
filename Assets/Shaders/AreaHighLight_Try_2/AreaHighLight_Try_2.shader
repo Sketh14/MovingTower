@@ -30,6 +30,7 @@ Shader "Custom/AHL_Try_2"
             {
                 Blend SrcAlpha OneMinusSrcAlpha
                 ZWrite Off
+                Cull Off
 
                 CGPROGRAM
                 #pragma vertex vert
@@ -93,7 +94,7 @@ Shader "Custom/AHL_Try_2"
                     //float diff = depth - subtractedOffset;                    //Can work
                     
                     float oneMinusDiff = 1 - diff;
-                    float smoothDiff = smoothstep(0, 1, oneMinusDiff);
+                    float smoothDiff = smoothstep(0, 1, oneMinusDiff);          //Can cause performance issues
 
                     finalColor.a = smoothDiff;
 
