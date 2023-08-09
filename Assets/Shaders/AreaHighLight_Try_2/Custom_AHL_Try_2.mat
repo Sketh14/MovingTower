@@ -26,8 +26,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DepthMultiplier: 2.92
     - _IntersectionDepth: 3.36
-    - _Offset: 1.02
+    - _Offset: 0.85
     m_Colors:
     - _HighlightColor: {r: 1, g: 0, b: 0, a: 1}
     - _RegularColor: {r: 0, g: 1, b: 0.8384063, a: 1}

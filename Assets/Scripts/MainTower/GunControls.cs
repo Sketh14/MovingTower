@@ -10,10 +10,12 @@ namespace Moving_Tower
 
         [Space]
         [SerializeField] private bool rotate, enemyFound, enemyLeft, enableTurret;
-        [SerializeField] private Transform activeTarget, radiusCheck;
-        private Quaternion startRot, finalRot;
+        [SerializeField] private Transform activeTarget, perimeterArea;
         private Vector3 tempVec1, tempVec2;
-        private float time;
+
+        [Header("Main Menu")]
+        private Quaternion finalRot;              //startRot,
+        private float time = -0.01f;               //For Main Menu, -.01
 
         [Header("Shoot Controls")]
         [SerializeField] private bool enableShooting;
@@ -36,6 +38,11 @@ namespace Moving_Tower
         {
             localGameLogic.OnTowerCollected += DisableTurret;
             localGameLogic.OnEnemyKilled += DisableShooting;
+
+            localGameLogic.OnIntroFinished += 
+                () => { CancelInvoke(nameof(EnableRotate));
+                    rotate = false; 
+                    enableTurret = true; };
         }
 
         private void OnDisable()
@@ -47,6 +54,9 @@ namespace Moving_Tower
         private void Start()
         {
             GameManager.instance.currentBulletDamage = 10;
+            InvokeRepeating(nameof(UpdatePerimeterHiglightArea), 0f, 2f);
+            //RotateTurretRandomly();
+            //InvokeRepeating(nameof(UpdatePerimeterHiglightArea), 0f, Time.fixedDeltaTime);
         }
 
         #region TurretControls
@@ -55,7 +65,11 @@ namespace Moving_Tower
         private void FixedUpdate()
         {
             if (!enableTurret)
+            {
+                if (rotate)
+                    RotateTurretRandomly();
                 return;
+            }
 
             if (rotate)
             {
@@ -79,7 +93,7 @@ namespace Moving_Tower
             }
             else if (activeTarget != null)
             {
-                //Debug.Log($"Active Target Found");
+                Debug.Log($"Active Target Found");
 
                 //tempVec1 = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
                 //tempVec2 = new Vector3(activeTarget.transform.position.x, 0f, activeTarget.transform.position.z);
@@ -119,6 +133,7 @@ namespace Moving_Tower
         private void DisableTurret(bool towerMoveStatus)
         {
             enableTurret = !towerMoveStatus;
+            perimeterArea.gameObject.SetActive(towerMoveStatus);
 
             if (towerMoveStatus)
                 DisableShooting();
@@ -170,9 +185,8 @@ namespace Moving_Tower
         //Wait for the turret to face the direction of the enemy
         public void RotateToDirection2(float rotateSpeed)
         {
-            var direction = activeTarget.position - transform.position;
-            finalRot = Quaternion.LookRotation(direction);
-            startRot = transform.rotation;
+            Vector3 direction = activeTarget.position - transform.position;
+            Quaternion finalRot = Quaternion.LookRotation(direction);
             time += rotateSpeed * Time.deltaTime;
             if (Quaternion.Angle(transform.rotation, finalRot) <= 5f)
             {
@@ -272,11 +286,47 @@ namespace Moving_Tower
         }
         #endregion PerimeterCheck
 
+        #region TurretVisuals
         //Not using this for now. Using a collider instead
         private void OnDrawGizmosSelected()
         {
             tempVec1 = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
             Gizmos.DrawWireSphere(tempVec1, (_turretRange) );
         }
+
+        private void UpdatePerimeterHiglightArea()
+        {
+            float higlightScaleXZ = 1.25f * _turretRange;               //y = 1.25x
+            Vector3 tempScale = new Vector3(higlightScaleXZ, 15f, higlightScaleXZ);
+
+            perimeterArea.transform.localScale = tempScale;
+        }
+        #endregion TurretVisuals
+
+        #region MainMenu
+        private void RotateTurretRandomly()
+        {
+            if (time <= 0)
+                finalRot = Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 0f));
+
+            time += 0.1f * Time.deltaTime;              //0.2f is rotate speed
+            if (Quaternion.Angle(transform.rotation, finalRot) <= 1f)
+            {
+                rotate = false;
+                time = -0.01f;
+                transform.rotation = finalRot;
+
+                Invoke(nameof(EnableRotate), Random.Range(1, 4));
+                //Debug.Log($"Rotaion Done");
+            }
+            transform.rotation = Quaternion.Lerp(transform.rotation, finalRot, time);
+            //Invoke(nameof(RotateTurretRandomly), Time.fixedDeltaTime);
+        }
+
+        private void EnableRotate()
+        {
+            rotate = true;
+        }
+        #endregion MainMenu
     }
 }

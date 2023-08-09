@@ -19,17 +19,17 @@ namespace Moving_Tower
         public byte wayPointCount { set => _wayPointCount = value; }
 
         // Start is called before the first frame update
-        public void OnObjectSpawn(byte wayPointIndex)
+        public virtual void OnObjectSpawn(byte wayPointIndex)
         {
-
             waypoints = GameManager.instance.wayPointsList[wayPointIndex];
             targetDir = waypoints.wayPoints[_wayPointCount] - transform.position;
             health = enemyStats.health;
             healthTxt.text = health.ToString();
+            //Debug.Log($"Waypoint Set, index : {wayPointIndex}, waypoints : {waypoints == null}, called on : {gameObject.name}");
         }
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
             transform.Translate(targetDir.normalized * enemyStats.speed * Time.deltaTime);
 

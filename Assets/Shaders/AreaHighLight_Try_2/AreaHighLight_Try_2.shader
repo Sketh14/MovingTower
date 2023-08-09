@@ -8,6 +8,7 @@ Shader "Custom/AHL_Try_2"
     Properties
     {
         _Offset("Offset", float) = 0.5
+        _DepthMultiplier("DepthMultiplier", float) = 0.5
 
         _RegularColor("Main Color", Color) = (1, 1, 1, .5)
         _HighlightColor("Highlight Color", Color) = (1, 1, 1, .5) //Color when intersecting
@@ -55,6 +56,7 @@ Shader "Custom/AHL_Try_2"
 
                 float4 _MainTex_ST;
                 float _Offset;
+                float _DepthMultiplier;
                 sampler2D _CameraDepthTexture; //Depth Texture
 
                 float4 _RegularColor;
@@ -76,12 +78,17 @@ Shader "Custom/AHL_Try_2"
                     float4 finalColor = _RegularColor;
                     float2 screenSpaceUV = i.screenSpace.xy / i.screenSpace.w;
 
-                    float depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenSpaceUV));
+                    float depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenSpaceUV));     //For Editor    //1
+                    //float depth = Linear01Depth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenSpaceUV ) * _DepthMultiplier);     //For Play Mode    //Does not work
+
                     //float depth = LinearEyeDepth(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenSpace)).r);
                     //float depth = Linear01Depth(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenSpace)).r);
 
+                    //float depth = (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenSpace)).r * _DepthMultiplier);   //2
+
                     //Actual distance to the camera
-                    float screenSpaceZ = i.screenSpace.w;
+                    float screenSpaceZ = i.screenSpace.w; //1
+                    //float screenSpaceZ = i.screenSpace.y;   //2
 
                     //float subtractedOffset = screenSpaceZ - _Offset;
 
@@ -90,7 +97,7 @@ Shader "Custom/AHL_Try_2"
                     //float diff = abs(depth - subtractedOffset);
                      
                     //float diff = depth - screenSpaceZ;
-                    float diff = depth - screenSpaceZ / _Offset;            //Works perfectly
+                    float diff = abs(depth - screenSpaceZ) / _Offset;            //Works perfectly
                     //float diff = depth - subtractedOffset;                    //Can work
                     
                     float oneMinusDiff = 1 - diff;

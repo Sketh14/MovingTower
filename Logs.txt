@@ -153,12 +153,14 @@
 			(+) Changing text of interact to "Pick Up"/"Put Down" accordingly.
 			(+) Changing color of the interact button to red/cyan accordingly.
 			(+) Instead of Prompt, we get button to be enabled.
-	(-) [Do] Interaction button pops up to press, when interaction is to be done.
+	(-) [Done For Now] Interaction button pops up to press, when interaction is to be done.
 	(-) Making space for UI at the bottom.
 		[=] Original camera stats
-			(+) Vector3(0,47.4000015,-45.0999985) - position
+			(+) Vector3(0,47.4,-45.1) - position
 			(+) Vector3(45,0,0) - rotation
 			(+) 49.5 - size
+			(+) 0.3 - near
+			(+) 150 - far
 		[=] Changing camera stats wont do jexkshyte.
 			(+) Need to change spawn positions and make UI at the bottom just like this accordingly.
 
@@ -194,7 +196,7 @@
 :- [Do] Decide initial stats for Cannon.
 	(-) initial damage - 10
 	(-) fire rate - 0.4
-	(-) range - not decided
+	(-) range - 20
 
 --------------------------------------------------------------------------------------
 									04 AUGUST 2023
@@ -206,15 +208,74 @@
 --------------------------------------------------------------------------------------
 => [Done For Now] Area Highlight shader
 
+--------------------------------------------------------------------------------------
+									07 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> Trying animations for enemies
+	(-) AirUnit1 :- Instead of animating, maybe try to do this in script nly.
+		[=] Script should be better
+			{-} -36 to 36 in z, rotation.
+		[=] Added simple fly animation with a little of bob up and down.
+=> Creating separate classes for each enemy type.
+
+--------------------------------------------------------------------------------------
+									08 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> [Done For Now] For highlighting the perimeter
+	(-) Can use a circle sprite which moves up and down to show the area covered.
+	(-) Original plan with transperant sprite around a cylinder would be better.
+=> Making new Area_HighLight cylinder as the old one does not has good UV-unwrapping.
+	(-) Equation for new cylinder :- y = 1.25x;
+	(-) Moving Area_HighLight code from UI to GunControls, as we would be using a cylinder now.
+=> [Do] Can remove the InvokeRepeating command of Area_HighLight to when it is called at the time of upgrade only.
+=> Removing un-necessary box colliders from the turret.
+=> Added Colliders to the up area also.
+=> Disabling player collider, rigidbody, player controller, also gameplay UI
+	(-) [Do] Enable back when the main gameplay starts.
+=> [Do] Finish Main Menu
+	(-) Changed Camera Stats:-
+		[=] position :- Vector3(-12,26,18)
+		[=] rotation :- Vector3(53.6,-5,0)
+	(-) Gave player a book
+	(-) Can create a controller for tower to randomly rotate in different directions to show that its scanning the environment.
+		[=] Doing this in the GunControls.
+		[=] EnableTurret will be false by default, until the game starts.
+		[=] Works for now.
+=> [Do] When player presses "Play", lerp the camera position from "Main Menu" to "Gameplay".
+
+--------------------------------------------------------------------------------------
+									08 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> [Do] Making Main Menu
+	(-) Lerping camera from MM to MG.
+	(-) Animating the in-between for character and if necessary turret.
+=> Animating book being kept down.
+	(-) Animating drawer
+		[=] Drawer original position - -9.67x
+		[=] First popping the drawer out -> book goes inside -> cover closes -> drawer withdraws
+		[=] Changing pop out speed to 3 for both drawer and cover, pop in speed to 3.5 for drawer.
+=> Lerping Camera
+	(-) Immediately lerping to orthographic view would not be good, looks janky.
+	(-) Changing to orthographic view from the start.
+	(-) Lerping size as well. og size - 49.5
+	(-) Works well for now.
+=> Intro sequence seems to be over for now!!
+
+
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
-		As a Customer Support Executive (4 Months) for Zomato, my job was to guide the customers having issues to a proper resolution and managing the relationship with our customers. As for Sales Executive (2 Months) for Lenskart, I was responsible for helping customers in making purchases and providing relevant information about
-		
-		As a Unity3D Developer, I am responsible for developing projects based on our clients requirements with the help of other team members and also making small scale games.  I have worked with the Mediapipe SDK plugin, AR Foundation and a bit of Vuforia.
-		As a Game Developer Intern, I was responsible for the development of a small game under the guidance of my TL and other team members, also making sure that targets were achieved in set time.
-		
-		Beer Pong - AR
-		https://play.google.com/store/apps/details?id=com.ElectroBolt.BhagodaNinja
-		Bhagoda Ninja
-		Double Jump
+
+												MAIN IDEAS
+										------------------------
+=> [Do] Need to make a progression system
+	(-) The levels start out easy, and then gets complex.
+=> [Do] Tower upgrade system.
+=> [Do] UI
+	(-) Main Menu
+		[=] Have the player sit idly while the turret shoots enemies passing by one at a time in random intervals.
+	(-) Gameplay
+	(-) (BAD IDEA) Can have both in the same scene
+		[=] play animation for the player to get up and take turret to initial position.
+		[=] Animation system cna prove to be problem.
+			{+} position, rotation values will lock for the player.

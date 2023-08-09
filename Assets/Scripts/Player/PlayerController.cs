@@ -13,6 +13,7 @@ namespace Moving_Tower
         private bool towerCollected, interactAvailable;
         private byte towerCollectionStatus;
         private Transform towerTransform;
+        [SerializeField] private Animator playerAnimator;
 
 #if !MOBILE_MODE
         [Header("Input Actions")]
@@ -36,6 +37,8 @@ namespace Moving_Tower
 #if !MOBILE_MODE
             playerControls.Enable();
 #endif
+
+            localGameLogic.OnGameplayStart += PutBookDown;
         }
 
         private void OnDisable()
@@ -43,6 +46,8 @@ namespace Moving_Tower
 #if !MOBILE_MODE
             playerControls.Disable();
 #endif
+
+            localGameLogic.OnGameplayStart -= PutBookDown;
         }
 
         private void Awake()
@@ -58,13 +63,15 @@ namespace Moving_Tower
 
         private void Update()
         {
-            //if (Keyboard.current.eKey.wasPressedThisFrame)
-            //{
-            //    interactAvailable = true;
-            //    Debug.Log("Key-E was pressed");
-            //}
-            //else
-            //    interactAvailable = false;
+            {
+                //if (Keyboard.current.eKey.wasPressedThisFrame)
+                //{
+                //    interactAvailable = true;
+                //    Debug.Log("Key-E was pressed");
+                //}
+                //else
+                //    interactAvailable = false;
+            }
 
 #if !MOBILE_MODE
             if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -84,6 +91,9 @@ namespace Moving_Tower
         // Update is called once per frame
         private void FixedUpdate()
         {
+            if (!GameManager.instance.gameStarted)
+                return;
+
             if (move)
             {
                 //playerRB.velocity = new Vector3(moveVector.x, playerRB.velocity.y, moveVector.y) * moveSpeedMultiplier;
@@ -112,7 +122,12 @@ namespace Moving_Tower
                 Invoke("DisableMove", 0.1f);
             }
         }
+        private void DisableMove()
+        {
+            move = false;
+        }
 
+        #region TowerFunctions
         //On the Interact button, under Main Canvas
         public void InteractWithTower()
         {
@@ -150,12 +165,9 @@ namespace Moving_Tower
             else
                 towerCollectionStatus = status;
         }
+        #endregion TowerFunctions
 
-        private void DisableMove()
-        {
-            move = false;
-        }
-
+        #region TriggerFunctions
         private void OnTriggerStay(Collider collidedObject)
         {
             //Debug.Log($"Trigger Found : {collidedObject.name}");
@@ -177,10 +189,34 @@ namespace Moving_Tower
                 towerTransform = null;
             }
         }
+        #endregion TriggerFunctions
 
-        private void SetTowerParent()
+        private void PutBookDown()
         {
+            playerAnimator.Play("PlaceBook", 0);
+            //Invoke(nameof(EnablePlayerForGameplay), 2f);
+        }
 
+        //On the player animtor timeline, under place book anim
+        public void DetachBook()
+        {
+            Transform book = transform.GetChild(1);
+            book.transform.localPosition = new Vector3(-2.5f, -1.78f, -2.38f);
+            book.SetParent(null);
+        }
+
+        //On the player animtor timeline, under stand up anim
+        public void EnablePlayerForGameplay()
+        {
+            transform.position = new Vector3(-9.93f, 10.67f, 38.4f);
+            transform.GetChild(0).localPosition = new Vector3(0f, -1.25f, 0f);
+
+            transform.GetComponent<Collider>().enabled = true;
+            playerRB.isKinematic = false;
+            playerRB.useGravity = true;
+
+            GameManager.instance.gameStarted = true;
+            playerAnimator.enabled = false;
         }
     }
 }
