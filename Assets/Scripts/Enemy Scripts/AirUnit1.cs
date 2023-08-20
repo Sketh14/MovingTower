@@ -6,6 +6,11 @@ namespace Moving_Tower
     {
         private bool wingsUp;
 
+        private void OnDisable()
+        {
+            CancelInvoke(nameof(FlapWings));
+        }
+
         public override void OnObjectSpawn(byte wayPointIndex)
         {
             base.OnObjectSpawn(wayPointIndex);

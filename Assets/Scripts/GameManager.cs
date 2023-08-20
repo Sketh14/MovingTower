@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,9 @@ namespace Moving_Tower
         public List<Transform> activeEnemies;          //Can be made to array for quicker access
 
         public float currentBulletDamage;
-        public bool gameStarted;
+        public bool gameStarted, totalHerdsSpawned;
+        public int currentWave = 1, tokenCollected;
+        public int[] upgradePrices;
         //[Header("Test Variable")]
         //public Transform activeTarget;
 
@@ -24,6 +25,16 @@ namespace Moving_Tower
             get { return _instance; }
         }
 
+        private void OnEnable()
+        {
+            gameLogicReference.OnEnemyKilled += RemoveEnemies;
+        }
+
+        private void OnDisable()
+        {
+            gameLogicReference.OnEnemyKilled -= RemoveEnemies;
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -33,6 +44,25 @@ namespace Moving_Tower
                 _instance = this;
 
             enemySpawnerReference.enabled = true;
+            GameManager.instance.currentWave = 1; 
+        }
+
+        private void RemoveEnemies(Transform enemy)
+        {
+            foreach(Transform t in activeEnemies)
+            {
+                if (t.Equals(enemy))
+                {
+                    activeEnemies.Remove(t);
+
+                    if (totalHerdsSpawned && activeEnemies.Count == 0)
+                    {
+                        gameLogicReference.OnWaveCompletion?.Invoke();
+                        totalHerdsSpawned = false;
+                    }
+                    return;
+                }
+            }
         }
     }
 }

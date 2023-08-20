@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6699737028535644765}
   - component: {fileID: 6891607302262104643}
   - component: {fileID: 7992000170642944797}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foot_Soldier_Sword
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 334782681025240884}
   - component: {fileID: 334782681025240885}
   - component: {fileID: 334782681025240886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 5589257016334536491}
   - component: {fileID: 6488412673474782775}
   - component: {fileID: 5436667628214022581}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 2869968521108369901}
   - component: {fileID: 3273318064487666128}
   - component: {fileID: 5806207901494124660}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Health (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 6161024568492994156}
   - component: {fileID: 7472354422574079915}
   - component: {fileID: 456657349186390040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hilt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4322717368572131758}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8082060074274364152}
   - component: {fileID: 8815326788212626792}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StatsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 8273102881788704024}
   - component: {fileID: 6274932701442591470}
   - component: {fileID: 5732153904065163527}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

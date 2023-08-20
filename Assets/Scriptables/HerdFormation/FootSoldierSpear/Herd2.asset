@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Herd2
   m_EditorClassIdentifier: Assembly-CSharp:Moving_Tower:EnemyHerdDetail_SO
   herdTag: FS_Herd2
-  herdCount: 5
+  herdCount: 3

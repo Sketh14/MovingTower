@@ -8,14 +8,15 @@ namespace Moving_Tower
         [System.Serializable]
         public class Enemy
         {
-            public Enemy_SO enemyStats;
-            public GameObject enemyPrefab;
+            public Enemy_SO stats;
+            public GameObject prefab;
             public EnemyHerdFormations_SO enemyHerdFormations;
+            public byte count;
         }
 
         public List<Enemy> enemiesList;
         public Dictionary<string, Queue<GameObject>> enemiesDictionary;
-        [SerializeField] private int maxEnemyCount;
+        //[SerializeField] private int maxEnemyCount;
 
         private static EnemyPoolManager _instance;
         public static EnemyPoolManager instance { get { return _instance; } }
@@ -38,22 +39,22 @@ namespace Moving_Tower
             
             foreach (Enemy enemy in enemiesList)
             {
-                GameObject poolHolder = new GameObject("EnemyPool_" + enemy.enemyStats.tag);
+                GameObject poolHolder = new GameObject("EnemyPool_" + enemy.stats.tag);
                 poolHolder.transform.parent = transform;
 
                 Queue<GameObject> enemyQueue = new Queue<GameObject>();
 
                 //Change this so that the Enemies are instantiated at each level and not the same quantity for every level
-                for (int i = 0; i < maxEnemyCount; i++)
+                for (int i = 0; i < enemy.count; i++)
                 {
-                    GameObject tempEnemy = Instantiate(enemy.enemyPrefab, poolHolder.transform);
-                    tempEnemy.name = enemy.enemyStats.tag + i;
+                    GameObject tempEnemy = Instantiate(enemy.prefab, poolHolder.transform);
+                    tempEnemy.name = enemy.stats.tag + i;
                     tempEnemy.gameObject.SetActive(false);
 
                     enemyQueue.Enqueue(tempEnemy);
                 }
 
-                enemiesDictionary.Add(enemy.enemyStats.tag, enemyQueue);
+                enemiesDictionary.Add(enemy.stats.tag, enemyQueue);
             }
         }
 

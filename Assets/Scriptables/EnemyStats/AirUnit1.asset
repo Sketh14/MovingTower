@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tag: AirUnit1
   speed: 8
-  health: 30
+  health: 7

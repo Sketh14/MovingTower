@@ -244,7 +244,7 @@
 => [Do] When player presses "Play", lerp the camera position from "Main Menu" to "Gameplay".
 
 --------------------------------------------------------------------------------------
-									08 AUGUST 2023
+									09 AUGUST 2023
 --------------------------------------------------------------------------------------
 => [Do] Making Main Menu
 	(-) Lerping camera from MM to MG.
@@ -261,6 +261,81 @@
 	(-) Works well for now.
 => Intro sequence seems to be over for now!!
 
+--------------------------------------------------------------------------------------
+									10 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> Creating upgrade mechanism
+	(-) Randomly spawning tokens for the player to collect in the walkable area.
+=> Disable Environment Controller when no longer needed.
+=> [Do] Limit how many tokens will be spawned for a level?
+	(-) Current time rate for token drop is very low, increasing from 5,10 to 15,20.
+	(-) Displaying prompt for first token spawn.
+=> [Works perfectly for now] [Optimize tho] Creating spawn mechanics for collectibles
+	(-) For ease of use for now, creating 2 points between which the tokens will spawn.
+=> [Do] Make Pause mechanics for upgrading tower.
+=> [Fix] the laser stops a good way before reaching AirUnit1
+
+--------------------------------------------------------------------------------------
+									14 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> Showing a button when the player enters the upgrade area.
+=> [Do] Make a mechanism for the enemy spawn.
+	(-) The enemied are introduced one after the other in ascending order of their difficulties
+	(-) After all have been shown, then we can proceed to mix all up.
+	(-) The SpawnUnityIndex should go from 1 to the latest (4 atm)
+		[=] Then mix accordingly.
+		[=] Works for now, but at the base rate the tower would not be able to destroy every enemy.
+=> [Fix] After coming back from being killed, the animations stop for some in few instances.
+=> [Fix] Upgrade mechanism :
+	(-) Incerasing +1 for the range of the turret every time for upgrade is not good
+		[=] The difference is barely noticeable
+	(-) The spawn rate of tokens also need to be fixed.
+=> [Fix] Disable joystick when the upgrade panel is open.
+=> [Fix] The aerial unit can fly above the bridge.
+	(-) [Suggestion] Quiet possibly attack the tower also?
+=> [Fix] Enemy waves
+	(-) Even the foot soldiers at wave 1, overwhlem the turret with sheer numbers.
+	(-) In the game jam video, it only takes 2 bullets to finish the first type of enemy.
+		[=] With 0.5 seconds of interval between bullets.
+=> [Fix] Collect token mechanism make
+=> [Fix] While carrying the tower if player steps on uprade pedestal, interact button goes away.
+=> [Fix] Disable bullets when hitting ground.
+
+--------------------------------------------------------------------------------------
+									15 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> Adjusting soem enemy stats.
+=> Changing bullet damage of the canon also.
+=> [Feature/Bug] If the canon destroys previous target and moves to the next target.
+	(-) The canon will fire before the next bullet invoke.
+	(-) The canon will fire above its fire rate.
+=> [Do] Show which wave the player is on at the moment.
+=> [Done For ow] Upon being destroyed, the enemy should inform the GameLogic
+	(-) So that how many enemies are left is known.
+=> [Fixed For Now] [Optimize] Active enemies are not removed from the GameManager list.
+=> [Do] Decide how many herds will spawn for one wave.
+	(-) Doing 4 for now for the 1st 4/5 waves, then start increasing by 1.
+=> [Do] Can get rid of totalEnemyUnits, instead use count of the HerdFormation array.
+
+--------------------------------------------------------------------------------------
+									19 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> [Do] Increase the wave interval
+	(-) Changing to 6 for now.
+=> [Fix] Code after the total herds are spawned for that wave.
+=> [Optimize] Multiple monobehaviour can be expensive
+	(-) Try adjusting all the spawners into one.
+=> [Fix] Lol, at certain point, the air unit will flap very rapidly.
+
+--------------------------------------------------------------------------------------
+									20 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> Disabling the controller UI for level transition.
+	(-) Enabling after level transition has been done.
+=> [Done For Now] Disbale collectibles spawn at level transition.
+	(-) Not doing this for now. Its good as it is.
+=> [Do] Decide the powers prices for the upgrade panel.
+	(-) Keeping a constant price for every upgrade for now.
 
 
 ------------------------------------------------------------------------------------------------------------
@@ -279,3 +354,33 @@
 		[=] play animation for the player to get up and take turret to initial position.
 		[=] Animation system cna prove to be problem.
 			{+} position, rotation values will lock for the player.
+=> [Do] Decide platform upgrade powers.
+=> [Do] Decide max levels for tower upgradation.
+=> [Suggestion] Should make a mechanism for the enemies to shoot back the turret
+	(-) This will make the player constanly try to upgrade the tower
+	(-)[Interesting] The player would have to stay near the turret to fix the turret.
+=> [Do] The first 4 waves will be for preparing the turret to go which route the player prefers.
+	(-) Whether the player prioritises speed or damage.
+	(-) Will add more attributes to the tower as we go along.
+=> Enemy types :
+	(-) [Do] A tank unity that has more health but low speed.
+	(-) A caster to strengthen the enemy units.
+=> Enemies can pass through each other.
+	(-) No need to make any re-routing alghorithm.
+=> [Do] A health bar instead of numbers for the enemies.
+=> [Do] Make a wave system.
+	(-) For a particular wave, only a set amount of enemy herds will spawn.
+	(-) [?] Cooldown before the next wave?
+=> Enemy Stats :
+	(-) https://docs.google.com/spreadsheets/d/1_yH49WOvrRxv4XL8B4jPG1lxauPudiha2QTY7jbIOLo/edit#gid=0
+=> [Do] Make scoring mechanics.
+=> [Do] Keep a track of how many upgrades are done.
+	(-) Increase the prices of upgrade accordingly.
+
+										------------------------			
+												MAIN FUNCTIONS
+										------------------------
+=> GameUI prompts index
+	(-) 0 - tower interaction
+	(-) 1 - first time token spawn
+	(-) 2 - Tower upgrade 

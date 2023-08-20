@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1275488650435557131}
   - component: {fileID: 4982635243728298927}
   - component: {fileID: 7992000170642944797}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DebugUnit
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -145,7 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: ca854d43e0c06184e972ea720a32635d, type: 2}
-  health: 100
   statsCanvas: {fileID: 6380667000836653520}
   healthTxt: {fileID: 3028107153807342440}
 --- !u!1 &334782681025240880
@@ -160,7 +159,7 @@ GameObject:
   - component: {fileID: 334782681025240884}
   - component: {fileID: 334782681025240885}
   - component: {fileID: 334782681025240886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +255,7 @@ GameObject:
   - component: {fileID: 7473405244594754498}
   - component: {fileID: 1196098267437441892}
   - component: {fileID: 3028107153807342440}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Health (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6380667000836653520}
   - component: {fileID: 8213487297648697269}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StatsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

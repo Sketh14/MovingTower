@@ -76,7 +76,7 @@ namespace Moving_Tower
 
             if (health <= 0)
             {
-                GameManager.instance.gameLogicReference.OnEnemyKilled?.Invoke();
+                GameManager.instance.gameLogicReference.OnEnemyKilled?.Invoke(transform);
                 gameObject.SetActive(false);
             }
         }

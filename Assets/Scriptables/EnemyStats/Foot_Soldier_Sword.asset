@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Foot_Soldier_Sword
   m_EditorClassIdentifier: 
   tag: FootSoldierSword
-  speed: 4
-  health: 100
+  speed: 3.5
+  health: 24

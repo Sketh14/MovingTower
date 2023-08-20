@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Herd1 1
   m_EditorClassIdentifier: 
   herdTag: MU2_Herd1
-  herdCount: 2
+  herdCount: 4

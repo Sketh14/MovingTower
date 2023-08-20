@@ -21,23 +21,22 @@ namespace Moving_Tower
         [SerializeField] private bool enableShooting;
         [SerializeField] private Transform shootingPoint;
         [SerializeField] private ParticleSystem gunFlash;
-        [SerializeField] private float shootInterval = 1f;
+        [SerializeField] private float _shootInterval = 1f;
+        public float shootInterval { set => _shootInterval = value; }
+        [SerializeField] private float _turretRange;
+        public float turretRange { set => _turretRange = value; }
 
         [Header("Local Reference Scritps")]
         [SerializeField] private DrawLaser localDrawLaser;
         [SerializeField] private GameLogic localGameLogic;
 
         private Collider[] colliders;
-        [SerializeField] private float _turretRange;
-        public float turretRange { 
-            set => _turretRange = value; 
-            get => _turretRange;
-        }
 
         private void OnEnable()
         {
             localGameLogic.OnTowerCollected += DisableTurret;
             localGameLogic.OnEnemyKilled += DisableShooting;
+            localGameLogic.OnPowersSelected += UpgradeTower;
 
             localGameLogic.OnIntroFinished += 
                 () => { CancelInvoke(nameof(EnableRotate));
@@ -49,11 +48,12 @@ namespace Moving_Tower
         {
             localGameLogic.OnTowerCollected -= DisableTurret;
             localGameLogic.OnEnemyKilled -= DisableShooting;
+            localGameLogic.OnPowersSelected -= UpgradeTower;
         }
 
         private void Start()
         {
-            GameManager.instance.currentBulletDamage = 10;
+            //GameManager.instance.currentBulletDamage = 10;
             InvokeRepeating(nameof(UpdatePerimeterHiglightArea), 0f, 2f);
             //RotateTurretRandomly();
             //InvokeRepeating(nameof(UpdatePerimeterHiglightArea), 0f, Time.fixedDeltaTime);
@@ -78,7 +78,7 @@ namespace Moving_Tower
                 if (!enableShooting)
                 {
                     enableShooting = true;
-                    InvokeRepeating(nameof(ShootBullets), 0f, shootInterval);
+                    InvokeRepeating(nameof(ShootBullets), 0f, _shootInterval);
                 }
 
                 //transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, transform.eulerAngles.z);
@@ -93,7 +93,7 @@ namespace Moving_Tower
             }
             else if (activeTarget != null)
             {
-                Debug.Log($"Active Target Found");
+                //Debug.Log($"Active Target Found");
 
                 //tempVec1 = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
                 //tempVec2 = new Vector3(activeTarget.transform.position.x, 0f, activeTarget.transform.position.z);
@@ -136,10 +136,10 @@ namespace Moving_Tower
             perimeterArea.gameObject.SetActive(towerMoveStatus);
 
             if (towerMoveStatus)
-                DisableShooting();
+                DisableShooting(null);
         }
 
-        private void DisableShooting()
+        private void DisableShooting(Transform dummyData)
         {
             //Debug.Log("Disabling Shooting");
 
@@ -152,13 +152,34 @@ namespace Moving_Tower
             enableShooting = false;
             CancelInvoke(nameof(ShootBullets));
         }
-        #endregion TurretControls
-
         private void ShootBullets()
         {
             gunFlash.Play();
             GameObject tempBullet = BulletPoolManager.instance.ReuseBullet("Bullet", shootingPoint);
             tempBullet.SetActive(true);
+        }
+        #endregion TurretControls
+
+        private void UpgradeTower(byte chosenPower)
+        {
+            switch(chosenPower)
+            {
+                case 0:
+                    _turretRange += 1f;
+                    break;
+
+                case 1:
+                    _shootInterval -= 0.1f;
+                    break;
+
+                case 2:
+                    GameManager.instance.currentBulletDamage += 1f;
+                    break;
+
+                default:
+                    Debug.Log($"Inside GunControl. Power of Index : {chosenPower}, not available");
+                    break;
+            }
         }
 
         #region TurretRotation
@@ -270,7 +291,7 @@ namespace Moving_Tower
             if (activeTarget != null && (tempVec1 - tempVec2).sqrMagnitude >= _turretRange * _turretRange )
             {
                 //Debug.Log($"Target Left, Diff : {(tempVec1 - tempVec2).sqrMagnitude}");
-                DisableShooting();
+                DisableShooting(null);
 
                 /*enemyFound = false;
                 activeTarget = null;

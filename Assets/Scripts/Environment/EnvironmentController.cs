@@ -57,7 +57,6 @@ namespace Moving_Tower
             yield return new WaitForSeconds(0.3f);
             float timeTaken = 0f;
             float timeMultiplier = 4f;
-            bool popped = false;
             Vector3 startPos = drawer.GetChild(0).localPosition;
             Vector3 poppedPos = startPos;
             poppedPos.z = 1f;

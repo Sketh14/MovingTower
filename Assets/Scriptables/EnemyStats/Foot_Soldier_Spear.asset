@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Foot_Soldier_Spear
   m_EditorClassIdentifier: 
   tag: FootSoldierSpear
-  speed: 3
-  health: 120
+  speed: 2.5
+  health: 20

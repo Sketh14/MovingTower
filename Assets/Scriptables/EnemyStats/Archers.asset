@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tag: Archers
   speed: 5
-  health: 70
+  health: 15

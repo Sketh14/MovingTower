@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 334782680816243341}
   - component: {fileID: 2097400986106497180}
   - component: {fileID: 1500866369866072430}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AirUnit1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 334782680816243342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.6000004, y: 7.9, z: 41.1}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2914816099938054905}
@@ -145,8 +145,7 @@ GameObject:
   - component: {fileID: 334782681025240887}
   - component: {fileID: 334782681025240884}
   - component: {fileID: 334782681025240885}
-  - component: {fileID: 334782681025240886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing_Begin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +184,7 @@ MeshRenderer:
   m_GameObject: {fileID: 334782681025240880}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -218,19 +217,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &334782681025240886
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334782681025240880}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1626714241594035392
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,8 +228,7 @@ GameObject:
   - component: {fileID: 8909891184087876264}
   - component: {fileID: 5301512376138721940}
   - component: {fileID: 2966980003377723160}
-  - component: {fileID: 4197956575300431829}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +267,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1626714241594035392}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -315,19 +300,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4197956575300431829
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626714241594035392}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1789094357725155374
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,8 +311,7 @@ GameObject:
   - component: {fileID: 7607872488858780169}
   - component: {fileID: 5987067383074742332}
   - component: {fileID: 3106096281243396156}
-  - component: {fileID: 642842457218234990}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +350,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1789094357725155374}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -412,19 +383,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &642842457218234990
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789094357725155374}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2422455487891142429
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8377909781951896598}
   - component: {fileID: 5953102789477622947}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StatsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +453,7 @@ GameObject:
   - component: {fileID: 4946354398790912341}
   - component: {fileID: 2711287023068976223}
   - component: {fileID: 6176816144913533773}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Health (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,8 +588,7 @@ GameObject:
   - component: {fileID: 4324033622073776911}
   - component: {fileID: 905406552609968735}
   - component: {fileID: 5036121237545442245}
-  - component: {fileID: 5231184489040177141}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wing_Begin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +627,7 @@ MeshRenderer:
   m_GameObject: {fileID: 7381471403185404059}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -703,19 +660,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5231184489040177141
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7381471403185404059}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8545584553637977230
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2914816099938054905}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5926115589514038120}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

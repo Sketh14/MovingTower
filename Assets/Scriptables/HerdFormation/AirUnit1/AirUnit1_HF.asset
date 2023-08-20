@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AirUnit1_HF
   m_EditorClassIdentifier: 
   totalHerdForamtions: 2
-  spawnInterval: 3
+  spawnInterval: 0.35
   herdFormations:
   - {fileID: 11400000, guid: 7ee55132286264b4eb00257237935c0a, type: 2}
   - {fileID: 11400000, guid: f4454dc63c44052489c3bee5dfa5d887, type: 2}

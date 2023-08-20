@@ -9,7 +9,8 @@ namespace Moving_Tower
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : MonoBehaviour
     {
-        private const string TOWER_TAG = "Tower";
+        private const string TOWER_TAG = "Tower", UPGRADEPLATFORM_TAG = "UpgradePlatform",
+            TOKEN_TAG = "Token";
         private bool towerCollected, interactAvailable;
         private byte towerCollectionStatus;
         private Transform towerTransform;
@@ -178,6 +179,12 @@ namespace Moving_Tower
                 towerTransform = collidedObject.transform;
                 //Debug.Log($"Tower Trigger Found : {collidedObject.name}, Tower Collected : {towerCollected}");
             }
+
+            if (collidedObject.CompareTag(UPGRADEPLATFORM_TAG))
+            {
+                //Debug.Log("Upgrade PLatform found");
+                localGameLogic.OnInteraction?.Invoke(2);
+            }
         }
 
         private void OnTriggerExit(Collider collidedObject)
@@ -188,9 +195,26 @@ namespace Moving_Tower
                 interactAvailable = false;
                 towerTransform = null;
             }
+
+            if (collidedObject.CompareTag(UPGRADEPLATFORM_TAG))
+            {
+                //Debug.Log("Upgrade PLatform found");
+                localGameLogic.OnInteraction?.Invoke(68);
+            }
+        }
+
+        private void OnTriggerEnter(Collider collidedObject)
+        {
+            if (collidedObject.CompareTag(TOKEN_TAG))
+            {
+                collidedObject.gameObject.SetActive(false);
+                GameManager.instance.tokenCollected++; 
+                localGameLogic.OnCollectibleCollected?.Invoke(0);
+            }
         }
         #endregion TriggerFunctions
 
+        #region IntroSequence
         private void PutBookDown()
         {
             playerAnimator.Play("PlaceBook", 0);
@@ -218,5 +242,6 @@ namespace Moving_Tower
             GameManager.instance.gameStarted = true;
             playerAnimator.enabled = false;
         }
+        #endregion IntroSequence
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 227422282899775332}
   - component: {fileID: 7383587805153831797}
   - component: {fileID: 7992000170642944797}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foot_Soldier_Spear
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -146,7 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: 51d2c9a26b21b2341b99c51de94cee49, type: 2}
-  health: 100
   statsCanvas: {fileID: 1025718488215758297}
   healthTxt: {fileID: 4903400649179444603}
 --- !u!1 &334782681025240880
@@ -161,7 +160,7 @@ GameObject:
   - component: {fileID: 334782681025240884}
   - component: {fileID: 334782681025240885}
   - component: {fileID: 334782681025240886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +257,7 @@ GameObject:
   - component: {fileID: 9100169142548510845}
   - component: {fileID: 4394856771632364269}
   - component: {fileID: 5433394157919912690}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1025718488215758297}
   - component: {fileID: 4670916992409055592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StatsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +412,7 @@ GameObject:
   - component: {fileID: 1297365035896840825}
   - component: {fileID: 667376855707485595}
   - component: {fileID: 4903400649179444603}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Health (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +548,7 @@ GameObject:
   - component: {fileID: 3215574182358866963}
   - component: {fileID: 412528254284555721}
   - component: {fileID: 6116086318178263249}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}

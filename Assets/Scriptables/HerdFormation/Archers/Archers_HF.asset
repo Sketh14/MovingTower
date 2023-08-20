@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Archers_HF
   m_EditorClassIdentifier: 
   totalHerdForamtions: 2
-  spawnInterval: 4
+  spawnInterval: 1
   herdFormations:
   - {fileID: 11400000, guid: fd4bfd7c573975042a0091e0f6ba228b, type: 2}
   - {fileID: 11400000, guid: 4789e8aea82241b47a815fbc25c24f3d, type: 2}

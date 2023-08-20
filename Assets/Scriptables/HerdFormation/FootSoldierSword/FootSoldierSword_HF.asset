@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cba8c1a7ae88a64ea87e32b76019b43, type: 3}
   m_Name: FootSoldierSword_HF
   m_EditorClassIdentifier: 
-  totalHerdForamtions: 2
+  totalHerdForamtions: 3
   spawnInterval: 2
   herdFormations:
   - {fileID: 11400000, guid: 18f7e707a6e78c149b20ca11ba5f4253, type: 2}
   - {fileID: 11400000, guid: f85bf64df1699d94ba8b1a9f43595937, type: 2}
+  - {fileID: 11400000, guid: 2073f31a7e50702459fac519fedc7643, type: 2}

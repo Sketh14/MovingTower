@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Moving_Tower
@@ -8,9 +6,11 @@ namespace Moving_Tower
     public class GameLogic : MonoBehaviour
     {
         [Header("Actions")]
-        public System.Action OnCastleReached, OnEnemyKilled, OnGameplayStart, OnIntroFinished;
+        public System.Action OnCastleReached, OnGameplayStart, OnIntroFinished, 
+            OnWaveCompletion, OnNextWaveRequested;
         public System.Action<bool> OnTowerCollected;
-        public System.Action<byte> OnInteraction;
+        public System.Action<byte> OnInteraction, OnPromptCalled, OnPowersSelected, OnCollectibleCollected;
+        public System.Action<Transform> OnEnemyKilled;
 
         [Header("Local Reference Scritps")]
         [SerializeField] private PlayerController localPlayerController;
@@ -21,11 +21,15 @@ namespace Moving_Tower
         {
             OnCastleReached += EndGame;
             OnIntroFinished += () => { _ = StartCoroutine(ChangeCameraSettings()); };
+            OnWaveCompletion += UpdateWaveStats;
+            //OnInteraction += ChangeGameStatus;
         }
 
         private void OnDisable()
         {
             OnCastleReached -= EndGame;
+            OnWaveCompletion -= UpdateWaveStats;
+            //OnInteraction -= ChangeGameStatus;
         }
 
         //On Main Canvas, under MainMenuCanvas / MainMenuCanvas
@@ -64,6 +68,24 @@ namespace Moving_Tower
 
             yield return new WaitForSeconds(2f);        //Wait some time before spawning Enemies
             localEnemySpawner.gameObject.SetActive(true);
+        }
+
+        /*private void ChangeGameStatus(byte chosenIndex)
+        {
+            if (chosenIndex == 2)
+                PauseGame(true);
+        }*/
+
+        //On the close button, under UpgradePanel/GameplayCanvas/UI
+        //On the Upgrade button, under Gameplaycanvas/UI
+        public void PauseGame(bool pause)
+        {
+            Time.timeScale = pause ? 0.0f : 1.0f;
+        }
+
+        private void UpdateWaveStats()
+        {
+            GameManager.instance.currentWave++;
         }
 
         private void EndGame()
