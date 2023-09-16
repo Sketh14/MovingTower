@@ -19,16 +19,13 @@ namespace Moving_Tower
 
         private void OnEnable()
         {
-            OnCastleReached += EndGame;
+            OnWaveCompletion += () => { GameManager.instance.currentWave++; };
             OnIntroFinished += () => { _ = StartCoroutine(ChangeCameraSettings()); };
-            OnWaveCompletion += UpdateWaveStats;
             //OnInteraction += ChangeGameStatus;
         }
 
         private void OnDisable()
         {
-            OnCastleReached -= EndGame;
-            OnWaveCompletion -= UpdateWaveStats;
             //OnInteraction -= ChangeGameStatus;
         }
 
@@ -58,7 +55,12 @@ namespace Moving_Tower
                 timeTaken += timeMultiplier * Time.deltaTime;
 
                 if (timeTaken > 1)
+                {
+                    mainCamera.orthographicSize = 49.5f;
+                    mainCamera.transform.localPosition = new Vector3(0f, 47.4f, -45.1f);
+                    mainCamera.transform.localRotation = Quaternion.Euler(new Vector3(45f, 0f, 0f));
                     break;
+                }
 
                 mainCamera.transform.localPosition = Vector3.Lerp(startPos, finalPos, timeTaken);
                 mainCamera.transform.localRotation = Quaternion.Lerp(startRot, finalRot, timeTaken);
@@ -81,16 +83,6 @@ namespace Moving_Tower
         public void PauseGame(bool pause)
         {
             Time.timeScale = pause ? 0.0f : 1.0f;
-        }
-
-        private void UpdateWaveStats()
-        {
-            GameManager.instance.currentWave++;
-        }
-
-        private void EndGame()
-        {
-
         }
     }
 }

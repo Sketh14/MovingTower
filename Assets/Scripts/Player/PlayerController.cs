@@ -1,5 +1,6 @@
 #define MOBILE_MODE
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -40,6 +41,10 @@ namespace Moving_Tower
 #endif
 
             localGameLogic.OnGameplayStart += PutBookDown;
+            localGameLogic.OnCastleReached += 
+                () => {
+                    InteractWithTower();        //Uncouple Tower
+                    this.enabled = false; };      //Just disable the Controller
         }
 
         private void OnDisable()
@@ -95,16 +100,20 @@ namespace Moving_Tower
             if (!GameManager.instance.gameStarted)
                 return;
 
+#if !MOBILE_MODE
             if (move)
             {
                 //playerRB.velocity = new Vector3(moveVector.x, playerRB.velocity.y, moveVector.y) * moveSpeedMultiplier;
                 //transform.Translate(new Vector3(moveVector.x, 0, moveVector.y) * moveSpeedMultiplier);
                 playerRB.AddForce(new Vector3(moveVector.x, 0, moveVector.y) * moveSpeedMultiplier, ForceMode.Impulse);
             }
+#endif
                         
             playerRB.AddForce(new Vector3(joystick.Direction.x, 0, joystick.Direction.y) * moveSpeedMultiplier, ForceMode.Impulse);
         }
 
+        #region PC_CONTROLS
+#if !MOBILE_MODE
         private void Move(InputAction.CallbackContext context)
         {
             //Debug.Log($"Context : {context.control.name}, Value : {context.ReadValue<Vector2>()}");
@@ -123,17 +132,21 @@ namespace Moving_Tower
                 Invoke("DisableMove", 0.1f);
             }
         }
+
         private void DisableMove()
         {
             move = false;
         }
+#endif
+        #endregion PC_CONTROLS
 
-        #region TowerFunctions
+#region TowerFunctions
         //On the Interact button, under Main Canvas
         public void InteractWithTower()
         {
             if (interactAvailable && towerCollectionStatus == 0)
             {
+                //Debug.Log($"Coupling Tower");
                 towerCollected = true;
                 localGameLogic.OnTowerCollected?.Invoke(towerCollected);
                 towerTransform.parent.parent = transform;
@@ -141,10 +154,10 @@ namespace Moving_Tower
                 StartCoroutine(UpdateTowerStatus(2));
             }
             else
-                CoupleTower();
+                UnCoupleTower();
         }
 
-        private void CoupleTower()
+        private void UnCoupleTower()
         {
             if (towerCollectionStatus == 2)
             {
@@ -152,7 +165,9 @@ namespace Moving_Tower
                 transform.GetChild(1).parent = null;                        //Since the tower will be the 1th child of the player
                 towerCollectionStatus = 3;
                 StartCoroutine(UpdateTowerStatus(0, true));
-                localGameLogic.OnTowerCollected?.Invoke(towerCollected);
+
+                if (!GameManager.instance.enemyReachedCastle)
+                    localGameLogic.OnTowerCollected?.Invoke(towerCollected);
                 //Debug.Log($"Setting Tower Free");
             }
         }
@@ -166,12 +181,13 @@ namespace Moving_Tower
             else
                 towerCollectionStatus = status;
         }
-        #endregion TowerFunctions
+#endregion TowerFunctions
 
-        #region TriggerFunctions
+#region TriggerFunctions
         private void OnTriggerStay(Collider collidedObject)
         {
             //Debug.Log($"Trigger Found : {collidedObject.name}");
+            //Show Interact button
             if (towerCollectionStatus == 0 && collidedObject.CompareTag(TOWER_TAG))   //Called twice if pressed even once
             {
                 localGameLogic.OnInteraction?.Invoke(0);
@@ -180,6 +196,7 @@ namespace Moving_Tower
                 //Debug.Log($"Tower Trigger Found : {collidedObject.name}, Tower Collected : {towerCollected}");
             }
 
+            //Show upgrade button
             if (collidedObject.CompareTag(UPGRADEPLATFORM_TAG))
             {
                 //Debug.Log("Upgrade PLatform found");
@@ -189,6 +206,7 @@ namespace Moving_Tower
 
         private void OnTriggerExit(Collider collidedObject)
         {
+            //Disable Interact button
             if (collidedObject.CompareTag(TOWER_TAG))
             {
                 localGameLogic.OnInteraction?.Invoke(69);
@@ -196,6 +214,7 @@ namespace Moving_Tower
                 towerTransform = null;
             }
 
+            //Disable upgrade button
             if (collidedObject.CompareTag(UPGRADEPLATFORM_TAG))
             {
                 //Debug.Log("Upgrade PLatform found");
@@ -212,9 +231,9 @@ namespace Moving_Tower
                 localGameLogic.OnCollectibleCollected?.Invoke(0);
             }
         }
-        #endregion TriggerFunctions
+#endregion TriggerFunctions
 
-        #region IntroSequence
+#region IntroSequence
         private void PutBookDown()
         {
             playerAnimator.Play("PlaceBook", 0);
@@ -242,6 +261,6 @@ namespace Moving_Tower
             GameManager.instance.gameStarted = true;
             playerAnimator.enabled = false;
         }
-        #endregion IntroSequence
+#endregion IntroSequence
     }
 }

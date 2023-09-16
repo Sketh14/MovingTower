@@ -26,14 +26,14 @@ namespace Moving_Tower
 
         private void OnEnable()
         {
-            localGameLogic.OnCastleReached += StopEnemySpawn;
+            localGameLogic.OnCastleReached += ResetEnemySpawner;
             localGameLogic.OnWaveCompletion += SetSpawnerForNextWave;
             localGameLogic.OnNextWaveRequested += SpawnEnemy;
         }
 
         private void OnDisable()
         {
-            localGameLogic.OnCastleReached -= StopEnemySpawn;
+            localGameLogic.OnCastleReached -= ResetEnemySpawner;
             localGameLogic.OnWaveCompletion -= SetSpawnerForNextWave;
             localGameLogic.OnNextWaveRequested -= SpawnEnemy;
         }
@@ -86,7 +86,7 @@ namespace Moving_Tower
                 spawnCount++;
                 
                 GameManager.instance.activeEnemies.Add(enemy.transform);
-                Invoke("SpawnEnemyObject", spawnInterval);            //Invoke Spawn after a set time interval
+                Invoke(nameof(SpawnEnemyObject), spawnInterval);            //Invoke Spawn after a set time interval
             }
             else
             {
@@ -94,7 +94,7 @@ namespace Moving_Tower
                 prevUnitIndex = spawnUnitIndex;
                 spawnCount = 0;
                 if (invokeCount < totalHerdsToSpawn)
-                    Invoke("SpawnEnemy", herdInterval);            //Invoke Next Herd Spawn after a set time interval
+                    Invoke(nameof(SpawnEnemy), herdInterval);            //Invoke Next Herd Spawn after a set time interval
                 else
                 {
                     GameManager.instance.totalHerdsSpawned = true;
@@ -110,9 +110,16 @@ namespace Moving_Tower
                 totalHerdsToSpawn++;
         }
 
-        private void StopEnemySpawn()
+        private void ResetEnemySpawner()
         {
+            //Debug.Log($"Resetting Enemy Spawner");
+            CancelInvoke(nameof(SpawnEnemy));
+            CancelInvoke(nameof(SpawnEnemyObject));
             //stopSpawn = true;
+
+            //Resetting Stats
+            spawnCount = invokeCount = prevUnitIndex = 0;
+            totalHerdsToSpawn = 4;
         }
     }
 }

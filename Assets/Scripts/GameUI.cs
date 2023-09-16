@@ -13,7 +13,7 @@ namespace Moving_Tower
         //[SerializeField] private Transform turretPerimeter;
         [SerializeField] private Canvas mainCanvas, gameplayCanvas;
         [SerializeField] private GameObject upgradePanel, levelTransitionUI;
-        [SerializeField] private Animator effectsCanvasAnimator;
+        [SerializeField] private Animator effectsCanvasAnimator, gameOverCanvas_AC;
 
         [Header("Buttons")]
         [SerializeField] private Image interactBtImg;
@@ -35,6 +35,11 @@ namespace Moving_Tower
             localGameLogic.OnPromptCalled += DisplayPrompt;
             localGameLogic.OnWaveCompletion += UpdateCurrentWave;
             localGameLogic.OnCollectibleCollected += UpdatecollectiblesUI;
+
+            localGameLogic.OnCastleReached += 
+                () => { gameplayCanvas.gameObject.SetActive(false);
+                    gameOverCanvas_AC.gameObject.SetActive(true);
+                    gameOverCanvas_AC.Play("SwipeOver_Entry", 0); };
         }
 
         private void OnDisable()
@@ -79,6 +84,7 @@ namespace Moving_Tower
         #region WaveTransition
         private void UpdateCurrentWave()
         {
+            upgradeButton.gameObject.SetActive(false);
             gameplayCanvas.gameObject.SetActive(false);
             effectsCanvasAnimator.gameObject.SetActive(true);
 
@@ -172,6 +178,7 @@ namespace Moving_Tower
         #region UI_Buttons
 
         //On ExitButton, under MainMenuCanvas/UI
+        //On ExitButton, under ButtonContainer/BG/StatsPanel/GameOverCanvas/UI
         public void ExitGame()
         {
             Application.Quit();
@@ -194,6 +201,18 @@ namespace Moving_Tower
             interactDone = !interactDone;
         }
 
+        //On HomeButton, under ButtonContainer/BG/StatsPanel/GameOverCanvas/UI
+        public void RestartGame()
+        {
+            gameOverCanvas_AC.Play("SwipeOver_Exit", 0);
+            Invoke(nameof(RestartHelper), 1.5f);
+        }
+
+        private void RestartHelper()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        }
+
         //On the power buttons, under PowerBtHolder/UpgradePanel/GameplayCanvas
         public void Chosenpower(int powerIndex)
         {
@@ -207,13 +226,19 @@ namespace Moving_Tower
             tokenCollected -= upgradePrice;
             upgradePrice += 2;
             powerPriceTxt[powerIndex].text = upgradePrice.ToString();
+
+            CheckUpgradeButtonsStatus();
         }
 
         //On Upgrade button, under GameplayCanvas/UI
         public void OpenUpgradePanel()
         {
             upgradePanel.SetActive(true);
+            CheckUpgradeButtonsStatus();
+        }
 
+        private void CheckUpgradeButtonsStatus()
+        {
             //Check if the player has enough tokens availbale
             int tokenCollected = GameManager.instance.tokenCollected;
             for (int i = 0; i < GameManager.instance.upgradePrices.Length; i++)
@@ -221,6 +246,8 @@ namespace Moving_Tower
                 int upgradePrice = GameManager.instance.upgradePrices[i];
                 if (tokenCollected >= upgradePrice)
                     upgradeBts[i].interactable = true;
+                else
+                    upgradeBts[i].interactable = false;
             }
         }
         #endregion UI_Buttons

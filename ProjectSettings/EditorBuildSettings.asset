@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene/MainScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/IntermediateLoadingScene/IntermediateLoading.unity
+    guid: 3485e3d75156da343820b62440b5fa93
   m_configObjects: {}

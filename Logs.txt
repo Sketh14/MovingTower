@@ -337,6 +337,59 @@
 => [Do] Decide the powers prices for the upgrade panel.
 	(-) Keeping a constant price for every upgrade for now.
 
+--------------------------------------------------------------------------------------
+									21 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> [Do] Make Game Over mechanics
+
+--------------------------------------------------------------------------------------
+									22 AUGUST 2023
+--------------------------------------------------------------------------------------
+=> [Do] Make Game Over mechanics
+	(-) Disable Enemy Spawner
+	(-) Disable Player Controller
+	(-) Disable Enemy Controller/ All Enemies if needed
+	(-) Disble Main Scripts if needed
+=> [Fix] Enemy Paths
+	(-) Changed the line which was checking the diff in distance between points from "Vector3.Distance" to only comparing the z-distance for index 0,1,3.
+	(-) For index 2, checking x-distance.
+	(-) All this is because some units, i.e. AirUnit, have variable y-pos at some points even when they are at the top of the waypoint.
+
+--------------------------------------------------------------------------------------
+									09 SEPTEMBER 2023
+--------------------------------------------------------------------------------------
+=> [Do] Making Game Over Mechanics
+	(-) Reload the same scene while loading it asynchronously? OR Reset everything.
+		[=] [Do] Load another scene that has nothing, but a loading bar to reload the main scene.
+	(-) Checking Game Over Logic For :
+		[=] EnemyController
+			{+} No need to reset position as the Enemy spawner can handle that at the time of spawning
+			{+} Continue the other troops to go towards the endpoint?
+			{+} Only calling OnCastleReached once, by the first unit which reached the castle, others ignore it.
+			{+} [Fixed] Increasing speed so that the rest units reach castle.
+				(:) Not good result, units can miss the mark and continue going forward in the assigned direction.
+				(:) Increasing the difference value to avoid the above situation.
+		[=] EnemySpawner
+			{+} Just about done with it currently.
+			{+} De-activating GameObject just in case.
+		[=] Player Controller
+			{+} Just Disabling the Player Controller
+			{+} [Do] Uncouple the tower also.
+				(:) [Bug] Towering getting coupled after release.
+				(:) Race condition between tower disabling and uncoupling tower.
+		[=] GameLogic
+			{+} When the Game Restart is requested, just load the next scene.
+		[=] GunControls
+			{+} Disabling the turret and rotating randomly just like the Main Menu.
+			{+} [Done] Disable laser as well as shooting.
+		[=] GameUI
+			{+} Made a Game Over Stats screen
+			{+} Immediately showing the Animation of GameOver Panel. Might Change in the future.
+			{+} [Do] Disable Every UI Element. Buttons etc that might be visible from the previous interactions.
+			{+} 
+		[=] CollectibleSpawner
+			{+} [Do] Disable it.
+
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
@@ -376,6 +429,8 @@
 => [Do] Make scoring mechanics.
 => [Do] Keep a track of how many upgrades are done.
 	(-) Increase the prices of upgrade accordingly.
+=> [Do] Make Game sounds.
+=> [Do] Can make an ending where the player has to do certain tasks to get a viable ending.
 
 										------------------------			
 												MAIN FUNCTIONS

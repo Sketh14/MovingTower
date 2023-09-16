@@ -8,18 +8,18 @@ namespace Moving_Tower
         //private bool firstInvoke;
         private string TOKEN_TAG = "Token";
         private byte invokeCount;
+        //private List<GameObject> spawnedCollectibles;
+
         [SerializeField] private byte upperTimeLimit, lowerTimeLimit;
-        private List<GameObject> spawnedCollectibles;
+        [SerializeField] private Transform[] spawnPoints;
 
         [Header("Local Reference Scritps")]
         [SerializeField] private GameLogic localGameLogic;
 
-        [Header("Local Reference Scritps")]
-        [SerializeField] private Transform[] spawnPoints;
-
         private void OnEnable()
         {
             localGameLogic.OnIntroFinished += SpawnCollectible;
+            localGameLogic.OnCastleReached += () => { CancelInvoke(nameof(SpawnCollectible)); };
         }
 
         private void OnDisable()
@@ -29,7 +29,7 @@ namespace Moving_Tower
 
         private void Start()
         {
-            spawnedCollectibles = new List<GameObject>();
+            //spawnedCollectibles = new List<GameObject>();
         }
 
         //Recursive function

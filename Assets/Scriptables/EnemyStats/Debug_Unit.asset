@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Debug_Unit
   m_EditorClassIdentifier: 
   tag: DebugUnit
-  speed: 12
+  speed: 20
+  health: 120
