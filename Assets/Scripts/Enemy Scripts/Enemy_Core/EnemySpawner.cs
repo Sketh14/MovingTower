@@ -41,7 +41,7 @@ namespace Moving_Tower
         // Start is called before the first frame update
         private void Start()
         {
-            Invoke("SpawnEnemy", 0f);
+            //Invoke("SpawnEnemy", 0f);
         }
 
         private void SpawnEnemy()

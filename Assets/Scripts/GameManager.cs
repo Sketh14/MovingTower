@@ -10,7 +10,7 @@ namespace Moving_Tower
         public List<Transform> activeEnemies;          //Can be made to array for quicker access
 
         public float currentBulletDamage;
-        public bool gameStarted, totalHerdsSpawned, enemyReachedCastle;
+        public bool gameStarted, totalHerdsSpawned, enemyReachedCastle, towerCollected, gamePaused;
         public int currentWave = 1, tokenCollected;
         public int[] upgradePrices;
         //[Header("Test Variable")]

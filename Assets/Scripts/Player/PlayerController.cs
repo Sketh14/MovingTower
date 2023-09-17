@@ -144,11 +144,12 @@ namespace Moving_Tower
         //On the Interact button, under Main Canvas
         public void InteractWithTower()
         {
-            if (interactAvailable && towerCollectionStatus == 0)
+            if (interactAvailable && towerCollectionStatus == 0 && !GameManager.instance.enemyReachedCastle)
             {
                 //Debug.Log($"Coupling Tower");
                 towerCollected = true;
                 localGameLogic.OnTowerCollected?.Invoke(towerCollected);
+                GameManager.instance.towerCollected = true;
                 towerTransform.parent.parent = transform;
                 towerCollectionStatus = 1;
                 StartCoroutine(UpdateTowerStatus(2));
@@ -162,6 +163,7 @@ namespace Moving_Tower
             if (towerCollectionStatus == 2)
             {
                 towerCollected = false;
+                GameManager.instance.towerCollected = false;
                 transform.GetChild(1).parent = null;                        //Since the tower will be the 1th child of the player
                 towerCollectionStatus = 3;
                 StartCoroutine(UpdateTowerStatus(0, true));

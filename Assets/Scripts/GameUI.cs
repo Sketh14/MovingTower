@@ -11,14 +11,20 @@ namespace Moving_Tower
         [SerializeField] private TMPro.TMP_Text promptTxt, interactBtTxt, currentWaveTxt, tokenTxt;
         [SerializeField] private TMPro.TMP_Text[] powerPriceTxt;
         //[SerializeField] private Transform turretPerimeter;
-        [SerializeField] private Canvas mainCanvas, gameplayCanvas;
+        [SerializeField] private Canvas mainCanvas, gameplayCanvas, pauseCanvas;
         [SerializeField] private GameObject upgradePanel, levelTransitionUI;
-        [SerializeField] private Animator effectsCanvasAnimator, gameOverCanvas_AC;
+        [SerializeField] private Animator effectsCanvasAnimator, gameOverCanvas_AC, pauseCanvas_AC;
 
         [Header("Buttons")]
         [SerializeField] private Image interactBtImg;
-        [SerializeField] private Button interactButton, upgradeButton;
+        [SerializeField] private Button interactButton, upgradeButton, pauseButton;
         [SerializeField] private Button[] upgradeBts;
+
+        /************************************************************
+         * 0 => interact button
+         * 1 => upgrade button
+         ************************************************************/
+        private byte buttonsToggleStatus;
 
         [Header("Local Reference Scritps")]
         [SerializeField] private GameLogic localGameLogic;
@@ -134,13 +140,16 @@ namespace Moving_Tower
         #region Prompt
         private void DisplayPrompt(byte promptIndex)
         {
-            switch(promptIndex)
+            byte maskIndex = 0;
+            switch (promptIndex)
             {
                 case 0:
 #if !MOBILE_MODE
                     promptTxt.text = "Press 'E' to carry.";
 #else
                     interactButton.gameObject.SetActive(true);
+                    maskIndex = 1 << 0;
+                    buttonsToggleStatus |= maskIndex;
 #endif
                     break;
 
@@ -150,15 +159,24 @@ namespace Moving_Tower
                     break;
 
                 case 2:
-                    upgradeButton.gameObject.SetActive(true);
+                    if (GameManager.instance.towerCollected)
+                    {
+                        upgradeButton.gameObject.SetActive(true); 
+                        maskIndex = 1 << 1;
+                        buttonsToggleStatus |= maskIndex;
+                    }
                     break;
 
                 case 68:
                     upgradeButton.gameObject.SetActive(false);
+                    maskIndex = 1 << 1;
+                    buttonsToggleStatus &= (byte)~maskIndex;
                     break;
 
                 case 69:
                     interactButton.gameObject.SetActive(false);
+                    maskIndex = 1 << 0;
+                    buttonsToggleStatus &= (byte)~maskIndex;
                     DisablePrompt();
                     break;
 
@@ -179,6 +197,7 @@ namespace Moving_Tower
 
         //On ExitButton, under MainMenuCanvas/UI
         //On ExitButton, under ButtonContainer/BG/StatsPanel/GameOverCanvas/UI
+        //On ExitButton, under ButtonContainer/BG/PausePanel/PauseCanvas/UI
         public void ExitGame()
         {
             Application.Quit();
@@ -204,9 +223,37 @@ namespace Moving_Tower
         //On HomeButton, under ButtonContainer/BG/StatsPanel/GameOverCanvas/UI
         public void RestartGame()
         {
-            gameOverCanvas_AC.Play("SwipeOver_Exit", 0);
+            //localGameLogic.PauseGame(false);
+
+            if (GameManager.instance.gamePaused)
+            {
+                Debug.Log($"Pause Menu");
+                pauseCanvas_AC.Play("SwipeOver_Exit", 0);
+            }
+            else
+                gameOverCanvas_AC.Play("SwipeOver_Exit", 0);
+
             Invoke(nameof(RestartHelper), 1.5f);
         }
+
+        //On PauseBt, under GamePlayCanvas/UI
+        public void PauseGame(bool pause)
+        {
+            if (pause)
+            {
+                localGameLogic.PauseGame(true); 
+                pauseCanvas.gameObject.SetActive(true);
+                //Invoke(nameof(PauseHelper), 1f); 
+            }
+            else
+            {
+                localGameLogic.PauseGame(false);
+                pauseButton.gameObject.SetActive(true);
+                pauseCanvas.gameObject.SetActive(false);
+            }
+        }
+
+        private void PauseHelper() {}
 
         private void RestartHelper()
         {
@@ -233,8 +280,19 @@ namespace Moving_Tower
         //On Upgrade button, under GameplayCanvas/UI
         public void OpenUpgradePanel()
         {
+            //upgradeButton.gameObject.SetActive(false);
+            if ((buttonsToggleStatus & (1 << 0)) != 0)         //Check if Interact buttons is still available
+                interactButton.gameObject.SetActive(false);
+
             upgradePanel.SetActive(true);
             CheckUpgradeButtonsStatus();
+        }
+
+        //On Close button, under UpgradePanel/GameplayCanvas/UI
+        public void CheckInteractStatus()
+        {
+            if ((buttonsToggleStatus & (1 << 0)) != 0)
+                interactButton.gameObject.SetActive(true);
         }
 
         private void CheckUpgradeButtonsStatus()

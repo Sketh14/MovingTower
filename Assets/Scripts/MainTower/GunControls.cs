@@ -46,7 +46,7 @@ namespace Moving_Tower
             localGameLogic.OnCastleReached +=
                 () => { DisableShooting(null);
                     perimeterArea.gameObject.SetActive(false);
-                    //Debug.Log($"Rotate after Enemy reached csatle");
+                    Debug.Log($"Rotate after Enemy reached csatle");
                     CancelInvoke(nameof(EnableRotate));
                     rotate = true;
                     enableTurret = false; };
@@ -143,7 +143,7 @@ namespace Moving_Tower
             enableTurret = !towerMoveStatus;
             perimeterArea.gameObject.SetActive(towerMoveStatus);
 
-            if (towerMoveStatus)
+            if (towerMoveStatus && enemyFound)
                 DisableShooting(null);
         }
 

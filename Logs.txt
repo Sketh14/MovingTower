@@ -390,6 +390,27 @@
 		[=] CollectibleSpawner
 			{+} [Do] Disable it.
 
+--------------------------------------------------------------------------------------
+									16 SEPTEMBER 2023
+--------------------------------------------------------------------------------------
+=> [Do] Making Game Over Mechanics
+	(-) GunControls
+		[=] [Fixed For Now] If the player is not holding the turret, then the game over mechanics will not kick in.
+			{+} The Player Controller calls InteractTower() while the enemy had reached the castle, so cheking whether the enemy had reached the castle or not. If not, then only fire.
+	(-) UI
+		[=] [Fixed For Now] The interact button for turret shows "Put Down", if once you enter the interact area for tower and then go to the upgrade point and open the upgrade panel, then entering back on the interact region for the tower, "Put Down" shows instead of "Pick Up".
+			{+} UpgradeButton was calling ChangeButtonColor() in GameUI.
+			{+} Adding a towerCollected toggle in GameManager to keep track of the turret. So that the button does not becomes active without collecting the tower first.
+=> [Do] [Important] Make Pause Mechanism.
+				
+--------------------------------------------------------------------------------------
+									17 SEPTEMBER 2023
+--------------------------------------------------------------------------------------
+=> [Fix] While the tower is collected and the player has moved to the upgrade point, the "Put Down" button is still activated.
+=> [Optimize] Area-Highlight shader.
+	(-) Made Cull off for the material.
+=> [Do] Updating buttons UI.
+
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------

@@ -82,6 +82,7 @@ namespace Moving_Tower
         //On the Upgrade button, under Gameplaycanvas/UI
         public void PauseGame(bool pause)
         {
+            GameManager.instance.gamePaused = pause;
             Time.timeScale = pause ? 0.0f : 1.0f;
         }
     }
