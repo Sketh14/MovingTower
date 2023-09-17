@@ -10,8 +10,9 @@ namespace Moving_Tower
         private byte invokeCount;
         //private List<GameObject> spawnedCollectibles;
 
-        [SerializeField] private byte upperTimeLimit, lowerTimeLimit;
+        [SerializeField] private byte upperTimeLimit, lowerTimeLimit;           //3,5
         [SerializeField] private Transform[] spawnPoints;
+        private bool collectibleAlreadyPresent;
 
         [Header("Local Reference Scritps")]
         [SerializeField] private GameLogic localGameLogic;
@@ -20,6 +21,7 @@ namespace Moving_Tower
         {
             localGameLogic.OnIntroFinished += SpawnCollectible;
             localGameLogic.OnCastleReached += () => { CancelInvoke(nameof(SpawnCollectible)); };
+            localGameLogic.OnCollectibleCollected += (byte dummyData) => { collectibleAlreadyPresent = false; };
         }
 
         private void OnDisable()
@@ -37,10 +39,12 @@ namespace Moving_Tower
         {
             Invoke(nameof(SpawnCollectible), Random.Range(lowerTimeLimit, upperTimeLimit));       //20,25
 
-            if (invokeCount++ == 0)           //(!firstInvoke) //firstInvoke = true;
+            //For Initial Prompt to collect token
+            if (invokeCount++ == 0 || collectibleAlreadyPresent)           //(!firstInvoke) //firstInvoke = true;
                 return;
             else if (invokeCount < 3)           //it has already incremented twice
                 localGameLogic.OnPromptCalled?.Invoke(1);
+            collectibleAlreadyPresent = true;
 
             //Spawn collectible, decide position, activate gameObject
             GameObject collectible = CollectiblePoolManager.instance.ReuseCollectible(TOKEN_TAG);

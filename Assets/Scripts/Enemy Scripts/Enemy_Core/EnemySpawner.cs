@@ -1,4 +1,4 @@
-#define TEST_MODE
+//#define TEST_MODE
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +22,7 @@ namespace Moving_Tower
         //private readonly const byte ;
         //[Range(1f, 5f)]
         [SerializeField] private float spawnInterval = 1f, herdInterval = 0f;
+        private bool updateWave = true;             //should be true for the 1st wave
         //private bool stopSpawn;
 
         private void OnEnable()
@@ -41,7 +42,7 @@ namespace Moving_Tower
         // Start is called before the first frame update
         private void Start()
         {
-            //Invoke("SpawnEnemy", 0f);
+            Invoke("SpawnEnemy", 0f);
         }
 
         private void SpawnEnemy()
@@ -52,18 +53,19 @@ namespace Moving_Tower
 
 #if !TEST_MODE
             //Make sure prevUnitIndex is equal to the spawnUnitIndex for the first invoke
-            while (spawnUnitIndex == prevUnitIndex)
+            while (spawnUnitIndex == prevUnitIndex && updateWave)
             {
                 if (GameManager.instance.currentWave <= totalEnemyUnits)
                     spawnUnitIndex++;
                 else
                     spawnUnitIndex = (byte)Random.Range(1, 5);
             }
+            updateWave = false;
 #endif
 
             int totalHerdForamtions = enemyHerdFormations[spawnUnitIndex].totalHerdForamtions;
             spawnInterval = enemyHerdFormations[spawnUnitIndex].spawnInterval;
-            herdCount = (byte) enemyHerdFormations[spawnUnitIndex].herdFormations[Random.Range(0, totalHerdForamtions)].herdCount;
+            herdCount = (byte)enemyHerdFormations[spawnUnitIndex].herdFormations[Random.Range(0, totalHerdForamtions)].herdCount;
             //Debug.Log($"Name : {enemyHerdFormations[spawnUnitIndex].name}, SpawnUnitIndex : {spawnUnitIndex}, " +
             //    $"spawnInterval : {spawnInterval}, totalHerdFormations : {totalHerdForamtions}, " +
             //    $"herdCount : {herdCount}");
@@ -81,6 +83,9 @@ namespace Moving_Tower
         {
             if (spawnCount < herdCount)
             {
+                if (GameManager.instance.currentWave > totalEnemyUnits)
+                    updateWave = true;
+                
                 GameObject enemy = EnemyPoolManager.instance.ReuseEnemy(enemyTags[spawnUnitIndex], spawnPoints[spawnPointRandomIndex], Quaternion.identity);
                 enemy.GetComponent<EnemyController>().OnObjectSpawn((byte)spawnPointRandomIndex);
                 spawnCount++;
@@ -98,6 +103,7 @@ namespace Moving_Tower
                 else
                 {
                     GameManager.instance.totalHerdsSpawned = true;
+                    updateWave = true;
                     //Debug.Log($"Wave Over : {GameManager.instance.currentWave}");
                 }
             }

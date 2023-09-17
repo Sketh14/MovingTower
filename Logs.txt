@@ -406,10 +406,18 @@
 --------------------------------------------------------------------------------------
 									17 SEPTEMBER 2023
 --------------------------------------------------------------------------------------
-=> [Fix] While the tower is collected and the player has moved to the upgrade point, the "Put Down" button is still activated.
+=> [Fixed For Now] While the tower is collected and the player has moved to the upgrade point, the "Put Down" button is still activated.
+	(-) Made a buttonsStatus bit to keep track of which buttons are enabled and which are not.
 => [Optimize] Area-Highlight shader.
 	(-) Made Cull off for the material.
-=> [Do] Updating buttons UI.
+=> [Done For Now] Updating buttons UI.
+=> [Fixed For Now] Collectible amount is not updating.
+=> [Decide] Values For scripts : 
+	(-)Herd Interval for Enemy Spawner.
+		[=] Changing from 10s to 7s.
+	(-) Collectible spawn interval
+=> [Done For Now] If another collectible is already present, do not spawn another.
+	(-) invoke byte variable would just overflow loop over
 
 
 ------------------------------------------------------------------------------------------------------------

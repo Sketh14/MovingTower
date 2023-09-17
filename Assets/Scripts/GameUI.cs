@@ -273,6 +273,7 @@ namespace Moving_Tower
             tokenCollected -= upgradePrice;
             upgradePrice += 2;
             powerPriceTxt[powerIndex].text = upgradePrice.ToString();
+            tokenTxt.text = tokenCollected.ToString();
 
             CheckUpgradeButtonsStatus();
         }

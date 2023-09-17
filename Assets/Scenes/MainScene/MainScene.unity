@@ -2622,7 +2622,7 @@ MonoBehaviour:
   spawnUnitIndex: 0
   spawnPointRandomIndex: 2
   spawnInterval: 1
-  herdInterval: 10
+  herdInterval: 7
 --- !u!4 &316196617
 Transform:
   m_ObjectHideFlags: 0
@@ -10878,8 +10878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a54750ce1afe8544888d456531a05ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperTimeLimit: 2
-  lowerTimeLimit: 1
+  upperTimeLimit: 5
+  lowerTimeLimit: 3
   spawnPoints:
   - {fileID: 903918234}
   - {fileID: 1590430710}
